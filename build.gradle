@@ -1,11 +1,13 @@
 buildscript {
+    apply from: "versions.gradle"
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.4"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath project_plugins.gradle
+        classpath project_plugins.kotlin
     }
 }
 
