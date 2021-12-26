@@ -10,6 +10,7 @@ import org.saulmm.marvel.R
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.utils.ext.viewBinding
 
+@AndroidEntryPoint
 class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     companion object {
         fun newInstance(): CharacterListFragment {
