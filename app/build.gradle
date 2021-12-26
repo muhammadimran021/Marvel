@@ -24,6 +24,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -39,8 +44,14 @@ dependencies {
     implementation deps.material
     implementation deps.constraint_layout
 
+    implementation deps.androidx.activity_ktx
+    implementation deps.androidx.fragment_ktx
+
     kapt deps.hilt.compiler
     implementation deps.hilt.core
+
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.runtime
 
     testImplementation deps.testing.junit
     androidTestImplementation deps.android_testing.junit
