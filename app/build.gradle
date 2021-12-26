@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
+    id "dagger.hilt.android.plugin"
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -36,6 +38,9 @@ dependencies {
     implementation deps.app_compat
     implementation deps.material
     implementation deps.constraint_layout
+
+    kapt deps.hilt.compiler
+    implementation deps.hilt.core
 
     testImplementation deps.testing.junit
     androidTestImplementation deps.android_testing.junit

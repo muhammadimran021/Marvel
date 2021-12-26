@@ -1,13 +1,15 @@
 def plugin_versions = [
     kotlin : "1.6.10",
-    gradle : "7.0.4"
+    gradle : "7.0.4",
+    hilt : "2.39.1"
 ]
 
 def versions = [
     androidx_core: "1.7.0",
     appcompat: "1.2.0",
     material: "1.4.0",
-    constraint_layout: "2.1.2"
+    constraint_layout: "2.1.2",
+    hilt: "2.39.1"
 ]
 
 def versions_testing = [
@@ -22,6 +24,7 @@ def versions_android_testing = [
 def plugins = [:]
 plugins.kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${plugin_versions.kotlin}"
 plugins.gradle = "com.android.tools.build:gradle:${plugin_versions.gradle}"
+plugins.hilt = "com.google.dagger:hilt-android-gradle-plugin:$plugin_versions.hilt"
 ext.project_plugins = plugins
 
 def deps = [:]
@@ -38,5 +41,10 @@ def android_testing = [:]
 android_testing.junit = "androidx.test.ext:junit:${versions_android_testing.junit}"
 android_testing.espresso_core = "androidx.test.espresso:espresso-core:${versions_android_testing.espresso}"
 deps.android_testing = android_testing
+
+def hilt = [:]
+hilt.core = "com.google.dagger:hilt-android:$versions.hilt"
+hilt.compiler = "com.google.dagger:hilt-android-compiler:$versions.hilt"
+deps.hilt = hilt
 
 ext.deps = deps
