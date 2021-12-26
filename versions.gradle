@@ -13,7 +13,10 @@ def versions = [
     hilt: "2.39.1",
     activity_ktx: "1.4.0",
     fragment_ktx: "1.4.0",
-    coroutines: "1.6.0"
+    coroutines: "1.6.0",
+    okhhtp: "4.9.3",
+    retrofit: "2.9.0",
+    moshi: "1.13.0"
 ]
 
 def versions_testing = [
@@ -66,5 +69,19 @@ lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle
 lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
 lifecycle.viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 deps.lifecycle = lifecycle
+
+def retrofit = [:]
+retrofit.core = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+deps.retrofit = retrofit
+
+def moshi = [:]
+moshi.core ="com.squareup.moshi:moshi-kotlin:$versions.moshi"
+moshi.codegen = "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
+deps.moshi = moshi
+
+def okhttp = [:]
+okhttp.core = "com.squareup.okhttp3:okhttp:$versions.okhhtp"
+okhttp.loggin = "com.squareup.okhttp3:logging-interceptor:$versions.okhhtp"
+deps.okhttp = okhttp
 
 ext.deps = deps

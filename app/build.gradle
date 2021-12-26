@@ -50,6 +50,14 @@ dependencies {
     implementation deps.coroutines.core
     implementation deps.coroutines.android
 
+    implementation deps.okhttp.core
+    implementation deps.okhttp.loggin
+
+    implementation deps.retrofit.core
+
+    kapt deps.moshi.codegen
+    implementation deps.moshi.core
+
     kapt deps.hilt.compiler
     implementation deps.hilt.core
 
