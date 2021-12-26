@@ -47,6 +47,9 @@ dependencies {
     kapt deps.hilt.compiler
     implementation deps.hilt.core
 
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.runtime
+
     testImplementation deps.testing.junit
     androidTestImplementation deps.android_testing.junit
     androidTestImplementation deps.android_testing.espresso_core
