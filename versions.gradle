@@ -72,12 +72,8 @@ deps.lifecycle = lifecycle
 
 def retrofit = [:]
 retrofit.core = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.moshi = "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
 deps.retrofit = retrofit
-
-def moshi = [:]
-moshi.core ="com.squareup.moshi:moshi-kotlin:$versions.moshi"
-moshi.codegen = "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
-deps.moshi = moshi
 
 def okhttp = [:]
 okhttp.core = "com.squareup.okhttp3:okhttp:$versions.okhhtp"

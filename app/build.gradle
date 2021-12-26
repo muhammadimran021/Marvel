@@ -54,9 +54,7 @@ dependencies {
     implementation deps.okhttp.loggin
 
     implementation deps.retrofit.core
-
-    kapt deps.moshi.codegen
-    implementation deps.moshi.core
+    implementation deps.retrofit.moshi
 
     kapt deps.hilt.compiler
     implementation deps.hilt.core
