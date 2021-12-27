@@ -7,25 +7,13 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.saulmm.marvel.BuildConfig
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetworkModule {
+object NetworkModule {
 
-    companion object {
-        const val READ_TIMEOUT_LIMIT_MINS = 2
-    }
-
-    @Provides
-    @Named("endpoint")
-    fun provideEndpoint(): String {
-        return "https://gateway.marvel.com"
-    }
+    const val READ_TIMEOUT_LIMIT_MINS = 2
 
     @Provides
     fun provideOkHttpLoggingInterceptor(): HttpLoggingInterceptor {

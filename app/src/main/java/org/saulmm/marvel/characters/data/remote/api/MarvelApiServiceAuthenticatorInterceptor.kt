@@ -3,11 +3,13 @@ package org.saulmm.marvel.characters.data.remote.api
 import okhttp3.Interceptor
 import okhttp3.Response
 import org.saulmm.marvel.utils.ext.md5
-import java.util.*
+import java.time.Clock
+import java.time.Instant
 
 class MarvelApiServiceAuthenticatorInterceptor(
     private val publicKey: String,
     private val privateKey: String,
+    private val clock: Clock = Clock.systemUTC()
 ): Interceptor {
 
     private companion object {
@@ -18,7 +20,7 @@ class MarvelApiServiceAuthenticatorInterceptor(
     }
 
     private val timeStamp: String
-        get() = Date().time.toString()
+        get() = Instant.now(clock).epochSecond.toString()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -41,7 +43,6 @@ class MarvelApiServiceAuthenticatorInterceptor(
 
         return chain.proceed(newRequest)
     }
-
 
     /**
      * Generates a hash parameter, required by the marvel api to sign the requests.

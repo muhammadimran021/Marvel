@@ -20,7 +20,9 @@ def versions = [
 ]
 
 def versions_testing = [
-    junit: "4.+"
+    junit: "4.+",
+    truth: "1.1.3",
+    mockwebserver: "4.9.3"
 ]
 
 def versions_android_testing = [
@@ -42,6 +44,8 @@ deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
 
 def testing = [:]
 testing.junit = "junit:junit:${versions_testing.junit}"
+testing.mockwebserver = "com.squareup.okhttp3:mockwebserver:$versions_testing.mockwebserver"
+testing.truth = "com.google.truth:truth:$versions_testing.truth"
 deps.testing = testing
 
 def androidx = [:]
