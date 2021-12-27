@@ -2,7 +2,9 @@ package org.saulmm.marvel.characters.list.view
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import org.saulmm.marvel.characters.data.CharacterRepository
 import javax.inject.Inject
 
@@ -12,6 +14,9 @@ class CharacterListViewModel @Inject constructor(
 ): ViewModel() {
 
     init {
-        Log.i("di", "Hello $repository")
+        viewModelScope.launch {
+            val characters = repository.characters()
+            Log.i("characters", "Hello $characters")
+        }
     }
 }
