@@ -1,6 +1,9 @@
 package org.saulmm.marvel.di
 
+import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.saulmm.marvel.BuildConfig
@@ -10,6 +13,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     companion object {
@@ -19,7 +24,7 @@ class NetworkModule {
     @Provides
     @Named("endpoint")
     fun provideEndpoint(): String {
-        return "http://hello.com"
+        return "https://gateway.marvel.com"
     }
 
     @Provides
@@ -34,14 +39,13 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideOkHttpClient(
+    fun provideBaseOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-    ): OkHttpClient {
+    ): OkHttpClient.Builder {
         return OkHttpClient.Builder()
             .retryOnConnectionFailure(true)
             .addInterceptor(httpLoggingInterceptor)
             .readTimeout(3, TimeUnit.MINUTES)
             .connectTimeout(2, TimeUnit.MINUTES)
-            .build()
     }
 }

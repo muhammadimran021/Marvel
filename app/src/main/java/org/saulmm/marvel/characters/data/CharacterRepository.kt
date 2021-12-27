@@ -7,7 +7,7 @@ class CharacterRepository(
 ) {
 
     suspend fun characters(): List<Character> {
-        TODO()
+        return remote.characters()
     }
 
     suspend fun character(id: Int): Character? {
