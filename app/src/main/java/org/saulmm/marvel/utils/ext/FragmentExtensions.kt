@@ -16,6 +16,14 @@ fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T)
     return FragmentViewBindingDelegate(this, viewBindingFactory)
 }
 
+@Suppress("unused")
+inline fun <reified T : Any> Fragment.argument(key: String, default: T? = null): Lazy<T> {
+    return lazy {
+        val value = arguments?.get(key)
+        requireNotNull(if (value is T) value else default) { key }
+    }
+}
+
 /**
  * Launches a new coroutine and repeats `block` every time the Fragment's viewLifecycleOwner
  * is in and out of `minActiveState` lifecycle state.

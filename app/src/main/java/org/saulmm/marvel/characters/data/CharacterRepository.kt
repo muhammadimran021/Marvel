@@ -1,16 +1,17 @@
 package org.saulmm.marvel.characters.data
 
 import org.saulmm.marvel.characters.data.models.Character
+import org.saulmm.marvel.characters.data.models.CharacterPreview
 
 class CharacterRepository(
     val remote: CharacterDatasource
 ) {
 
-    suspend fun characters(): List<Character> {
+    suspend fun characters(): List<CharacterPreview> {
         return remote.characters()
     }
 
     suspend fun character(id: Int): Character? {
-        TODO()
+        return remote.character(id)
     }
 }

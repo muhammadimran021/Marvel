@@ -6,9 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import org.saulmm.marvel.BuildConfig
-import org.saulmm.marvel.characters.data.CharacterDatasource
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.remote.CharacterRemoteDatasource
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiService
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiServiceAuthenticatorInterceptor
