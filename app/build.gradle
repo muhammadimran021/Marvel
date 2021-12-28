@@ -66,6 +66,9 @@ dependencies {
     kapt deps.hilt.compiler
     implementation deps.hilt.core
 
+    kapt deps.glide.compiler
+    implementation deps.glide.core
+
     implementation deps.lifecycle.java8
     implementation deps.lifecycle.runtime
 

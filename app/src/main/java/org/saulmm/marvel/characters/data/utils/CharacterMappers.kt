@@ -6,6 +6,7 @@ import org.saulmm.marvel.characters.data.remote.models.CharacterPreviewDto
 fun CharacterPreviewDto.toCharacter(): CharacterPreview {
     return CharacterPreview(
         id = id,
-        name = name
+        name = name,
+        image = thumbnail.toImage()
     )
 }
