@@ -16,7 +16,8 @@ def versions = [
     coroutines: "1.6.0",
     okhhtp: "4.9.3",
     retrofit: "2.9.0",
-    moshi: "1.13.0"
+    moshi: "1.13.0",
+    glide: "4.12.0"
 ]
 
 def versions_testing = [
@@ -54,6 +55,11 @@ def androidx = [:]
 androidx.activity_ktx = "androidx.activity:activity-ktx:$versions.androidx_ktx"
 androidx.fragment_ktx = "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
 deps.androidx = androidx
+
+def glide = [:]
+glide.core = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
 
 def android_testing = [:]
 android_testing.junit = "androidx.test.ext:junit:${versions_android_testing.junit}"
