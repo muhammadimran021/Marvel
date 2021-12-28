@@ -7,15 +7,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.characters.data.CharacterRepository
+import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.list.view.CharacterListViewModel
 import javax.inject.Inject
 
 class CharacterDetailViewModel @AssistedInject constructor(
     @Assisted val characterPreview: CharacterPreview,
     private val characterRepository: CharacterRepository
-): ViewModel() {
+) : ViewModel() {
 
     companion object {
         fun provideFactory(
@@ -34,13 +38,38 @@ class CharacterDetailViewModel @AssistedInject constructor(
     }
 
     init {
-//        loadCharacterDetail()
+        loadCharacterDetail()
     }
 
-     fun loadCharacterDetail() {
+    private val viewState = MutableStateFlow<CharacterDetailViewState?>(null)
+    val onViewState = viewState.asStateFlow()
+
+    sealed class CharacterDetailViewState {
+        object Loading: CharacterDetailViewState()
+        object Failure: CharacterDetailViewState()
+        class Success(val character: Character): CharacterDetailViewState()
+    }
+
+    private fun loadCharacterDetail() {
         viewModelScope.launch {
-            val characterDetail = characterRepository.character(characterPreview.id)
-            Log.d("character", characterDetail.toString())
+            viewState.value = CharacterDetailViewState.Loading
+
+            runCatching { characterRepository.character(characterPreview.id) }
+                .onSuccess { onCharacterDetailSuccess(it) }
+                .onFailure { onCharacterDetailFailure(it) }
         }
+    }
+
+    private fun onCharacterDetailSuccess(character: Character?) {
+        viewState.value = if (character != null) {
+            CharacterDetailViewState.Success(character)
+        } else {
+            CharacterDetailViewState.Failure
+        }
+    }
+
+    private fun onCharacterDetailFailure(e: Throwable) {
+        e.printStackTrace()
+        viewState.value = CharacterDetailViewState.Failure
     }
 }

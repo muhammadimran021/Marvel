@@ -28,6 +28,7 @@
             android:layout_height="150dp"
             tools:background="@color/gray_02"
             android:contentDescription="@null"
+            tools:src="@tools:sample/avatars"
             />
 
         <LinearLayout

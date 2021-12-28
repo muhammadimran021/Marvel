@@ -17,4 +17,7 @@ data class Image(
 
     val landScapeIncredible: String
         get() = "$path/${MarvelImageVariant.LANDSCAPE_INCREDIBLE.value}.$extension"
+
+    val portraitIncredible: String
+        get() = "$path/${MarvelImageVariant.PORTRAIT_INCREDIBLE.value}.$extension"
 }
