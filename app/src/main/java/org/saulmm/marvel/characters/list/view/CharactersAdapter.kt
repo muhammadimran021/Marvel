@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import org.saulmm.marvel.characters.data.models.Character
+import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.databinding.ItemCharacterBinding
 
 class CharactersAdapter(
     private val inflater: LayoutInflater,
-    private val onCharacterClick: (Character) -> Unit
-): ListAdapter<Character, CharacterViewHolder>(object : DiffUtil.ItemCallback<Character?>() {
-    override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+    private val onCharacterClick: (CharacterPreview) -> Unit
+): ListAdapter<CharacterPreview, CharacterViewHolder>(object : DiffUtil.ItemCallback<CharacterPreview?>() {
+    override fun areItemsTheSame(oldItem: CharacterPreview, newItem: CharacterPreview): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+    override fun areContentsTheSame(oldItem: CharacterPreview, newItem: CharacterPreview): Boolean {
         return oldItem == newItem
     }
 }) {

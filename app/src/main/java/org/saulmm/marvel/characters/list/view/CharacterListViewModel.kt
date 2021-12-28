@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.Character
+import org.saulmm.marvel.characters.data.models.CharacterPreview
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +19,7 @@ class CharacterListViewModel @Inject constructor(
     sealed class CharactersViewState {
         object Loading: CharactersViewState()
         class Failure(e: Throwable): CharactersViewState()
-        class Success(val characters: List<Character>): CharactersViewState()
+        class Success(val characters: List<CharacterPreview>): CharactersViewState()
     }
 
     private val viewState = MutableStateFlow<CharactersViewState?>(null)
@@ -46,7 +46,7 @@ class CharacterListViewModel @Inject constructor(
         viewState.value = CharactersViewState.Failure(e)
     }
 
-    private fun onRequestCharactersSuccess(characters: List<Character>) {
+    private fun onRequestCharactersSuccess(characters: List<CharacterPreview>) {
         viewState.value = CharactersViewState.Success(characters)
     }
 }

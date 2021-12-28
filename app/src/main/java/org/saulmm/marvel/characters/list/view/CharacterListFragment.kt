@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
-import org.saulmm.marvel.characters.data.models.Character
+import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.utils.ext.launchAndRepeatWithViewLifecycle
 import org.saulmm.marvel.utils.ext.viewBinding
@@ -63,7 +63,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         }
     }
 
-    private fun showCharacters(characters: List<Character>) {
+    private fun showCharacters(characters: List<CharacterPreview>) {
         showLoading(false)
         showFailure(false)
         adapter.submitList(characters)
@@ -77,7 +77,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         TODO()
     }
 
-    private fun onCharacterClick(character: Character) {
+    private fun onCharacterClick(character: CharacterPreview) {
         Toast.makeText(requireContext(), character.name, Toast.LENGTH_SHORT).show()
     }
 }
