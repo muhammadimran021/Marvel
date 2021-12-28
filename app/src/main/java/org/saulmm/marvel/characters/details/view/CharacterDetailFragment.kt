@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
 import org.saulmm.marvel.characters.data.models.CharacterPreview
@@ -41,12 +42,15 @@ class CharacterDetailFragment: Fragment(R.layout.fragment_character_detail) {
         setupObservers()
     }
 
-    fun setupView() {
-        binding.toolbar.title = characterPreview.name
+    private fun setupView() {
         binding.txtTitle.text = characterPreview.name
+
+        Glide.with(requireContext())
+            .load(characterPreview.image.landScapeIncredible)
+            .into(binding.imgCharacter)
     }
 
-    fun setupObservers() {
+    private fun setupObservers() {
         viewModel.loadCharacterDetail()
     }
 }

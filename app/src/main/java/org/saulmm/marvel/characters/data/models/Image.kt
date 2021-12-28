@@ -14,4 +14,7 @@ data class Image(
 ) {
     val squareLarge: String
         get() = "$path/${MarvelImageVariant.SQUARE_XLARGE.value}.$extension"
+
+    val landScapeIncredible: String
+        get() = "$path/${MarvelImageVariant.LANDSCAPE_INCREDIBLE.value}.$extension"
 }
