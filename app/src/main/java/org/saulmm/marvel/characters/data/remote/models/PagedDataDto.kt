@@ -1,4 +1,4 @@
-package org.saulmm.marvel.characters.data.remote
+package org.saulmm.marvel.characters.data.remote.models
 
 data class PagedDataDto<T>(
     val offset: Int,

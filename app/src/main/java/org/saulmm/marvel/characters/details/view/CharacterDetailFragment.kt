@@ -47,6 +47,6 @@ class CharacterDetailFragment: Fragment(R.layout.fragment_character_detail) {
     }
 
     fun setupObservers() {
-
+        viewModel.loadCharacterDetail()
     }
 }

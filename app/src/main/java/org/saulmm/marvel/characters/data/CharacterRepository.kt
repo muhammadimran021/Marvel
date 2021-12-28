@@ -1,5 +1,6 @@
 package org.saulmm.marvel.characters.data
 
+import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 
 class CharacterRepository(
@@ -10,7 +11,7 @@ class CharacterRepository(
         return remote.characters()
     }
 
-    suspend fun character(id: Int): CharacterPreview? {
-        TODO()
+    suspend fun character(id: Int): Character? {
+        return remote.character(id)
     }
 }
