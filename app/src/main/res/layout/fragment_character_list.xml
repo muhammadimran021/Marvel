@@ -19,7 +19,7 @@
 
     <include
         android:id="@+id/view_loading"
-        layout="@layout/view_character_list_loading"
+        layout="@layout/view_loading_characters_list"
         android:visibility="gone"
         />
 </FrameLayout>

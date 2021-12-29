@@ -7,7 +7,6 @@
     >
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -56,15 +55,30 @@
                 android:text="Comics"
                 />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_comics"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                tools:listitem="@layout/item_comic"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                />
+                android:animateLayoutChanges="true"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_comics"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_comic"
+                    tools:visibility="visible"
+                    />
+
+                <include
+                    android:id="@+id/view_loading_comics"
+                    layout="@layout/view_loading_comics_grid"
+                    android:visibility="gone"
+                    />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

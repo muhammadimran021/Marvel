@@ -10,7 +10,7 @@
     android:paddingHorizontal="16dp"
     android:clipToPadding="false"
     app:cardCornerRadius="16dp"
-    tools:showIn="@layout/view_character_list_loading"
+    tools:showIn="@layout/view_loading_characters_list"
     >
 
     <LinearLayout
