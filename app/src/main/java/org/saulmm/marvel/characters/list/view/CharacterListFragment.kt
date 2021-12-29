@@ -86,7 +86,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun showFullLoading(show: Boolean) {
-        binding.progressCharactersLoading.isVisible = show
+        binding.viewLoading.root.isVisible = show
     }
 
     private fun showLoadMoreLoading(show: Boolean) {
