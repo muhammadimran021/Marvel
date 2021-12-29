@@ -7,8 +7,8 @@ class CharacterRepository(
     val remote: CharacterDatasource
 ) {
 
-    suspend fun characters(): List<CharacterPreview> {
-        return remote.characters()
+    suspend fun characters(offset: Int): List<CharacterPreview> {
+        return remote.characters(offset)
     }
 
     suspend fun character(id: Int): Character? {

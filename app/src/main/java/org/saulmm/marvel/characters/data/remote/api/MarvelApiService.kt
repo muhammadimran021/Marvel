@@ -11,7 +11,10 @@ import retrofit2.http.Url
 interface MarvelApiService {
 
     @GET("/v1/public/characters")
-    suspend fun characters(): MarvelApiResponseDto<CharacterPreviewDto>
+    suspend fun characters(
+        @Query("offset") offset: Int,
+        @Query("orderBy") orderBy: String
+    ): MarvelApiResponseDto<CharacterPreviewDto>
 
     @GET("/v1/public/characters")
     suspend fun characterDetail(

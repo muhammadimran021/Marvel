@@ -20,6 +20,8 @@ class CharactersAdapter(
     }
 }) {
 
+    var onEndOfListReached: ((lastPosition: Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemCharacterBinding.inflate(inflater, parent, false)
         return CharacterViewHolder(binding, onCharacterClick)
@@ -27,6 +29,10 @@ class CharactersAdapter(
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(getItem(position))
+
+        if (position == itemCount - 1) {
+            onEndOfListReached?.invoke(position)
+        }
     }
 }
 
