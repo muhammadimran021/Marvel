@@ -2,4 +2,5 @@
     <string name="app_name">Marvel</string>
     <string name="action_more_info">More Info</string>
     <string name="label_marvel_character">Marvel Character</string>
+    <string name="label_nothing_here">Nothing here!</string>
 </resources>

@@ -8,6 +8,7 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.saulmm.marvel.characters.data.remote.models.CharacterOrderDto
 import org.saulmm.marvel.characters.di.CharactersModule
 import org.saulmm.marvel.utils.ext.md5
 import org.saulmm.marvel.utils.fromFile
@@ -55,7 +56,7 @@ class MarvelApiServiceAuthenticatorInterceptorTest {
             val successCharacterResponse = MockResponse.fromFile("Characters.json")
             mockWebServer.enqueue(successCharacterResponse)
 
-            marvelApi.characters()
+            marvelApi.characters(0, CharacterOrderDto.MODIFIED.value)
 
             val apiKey = mockWebServer.takeRequest().requestUrl?.queryParameter("apikey")
             assertThat(apiKey).isEqualTo(FAKE_MARVEL_PUBLIC_KEY)
@@ -68,7 +69,7 @@ class MarvelApiServiceAuthenticatorInterceptorTest {
             val successCharacterResponse = MockResponse.fromFile("Characters.json")
             mockWebServer.enqueue(successCharacterResponse)
 
-            marvelApi.characters()
+            marvelApi.characters(0, CharacterOrderDto.MODIFIED.value)
 
             val apiKey = mockWebServer.takeRequest().requestUrl?.queryParameter("ts")
             assertThat(apiKey).isEqualTo(fixedTimeStamp)
@@ -81,7 +82,7 @@ class MarvelApiServiceAuthenticatorInterceptorTest {
             val successCharacterResponse = MockResponse.fromFile("Characters.json")
             mockWebServer.enqueue(successCharacterResponse)
 
-            marvelApi.characters()
+            marvelApi.characters(0, CharacterOrderDto.MODIFIED.value)
 
             val hash = mockWebServer.takeRequest().requestUrl?.queryParameter("hash")
             val md5 = (fixedTimeStamp + FAKE_MARVEL_PRIVATE_KEY + FAKE_MARVEL_PUBLIC_KEY).md5()

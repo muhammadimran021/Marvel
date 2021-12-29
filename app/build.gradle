@@ -73,6 +73,7 @@ dependencies {
     implementation deps.lifecycle.runtime
 
     implementation deps.shrimmer
+    implementation deps.lottie
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth
