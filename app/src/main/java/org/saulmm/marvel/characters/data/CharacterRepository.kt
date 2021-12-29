@@ -1,6 +1,5 @@
 package org.saulmm.marvel.characters.data
 
-import kotlinx.coroutines.delay
 import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 
