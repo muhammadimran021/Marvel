@@ -5,6 +5,7 @@ import org.saulmm.marvel.characters.data.CharacterDatasource
 import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiService
+import org.saulmm.marvel.characters.data.remote.models.CharacterOrderDto
 import org.saulmm.marvel.characters.data.utils.toCharacter
 import org.saulmm.marvel.characters.data.utils.toComic
 import org.saulmm.marvel.di.IoDispatcher
@@ -14,8 +15,11 @@ class CharacterRemoteDatasource @Inject constructor(
     private val apiService: MarvelApiService,
     @IoDispatcher private val io: CoroutineDispatcher
 ): CharacterDatasource {
-    override suspend fun characters(): List<CharacterPreview> {
-        return apiService.characters().pagedResults.results.map { it.toCharacter() }
+    override suspend fun characters(offset: Int): List<CharacterPreview> {
+        return apiService.characters(
+            offset = offset,
+            orderBy = CharacterOrderDto.MODIFIED.value
+        ).pagedResults.results.map { it.toCharacter() }
     }
 
     override suspend fun character(id: Int): Character? {

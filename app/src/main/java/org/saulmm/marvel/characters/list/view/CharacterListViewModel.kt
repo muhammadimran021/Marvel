@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import okhttp3.internal.toImmutableList
 import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 import javax.inject.Inject
@@ -23,6 +24,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private val viewState = MutableStateFlow<CharactersViewState?>(null)
+    private val currentCharacters = mutableListOf<CharacterPreview>()
     val onViewState = viewState.asStateFlow()
 
     init {
@@ -31,11 +33,11 @@ class CharacterListViewModel @Inject constructor(
         }
     }
 
-    private fun loadCharacters() {
+    fun loadCharacters(offset: Int = 0) {
         viewState.value = CharactersViewState.Loading
 
         viewModelScope.launch {
-            runCatching { repository.characters() }
+            runCatching { repository.characters(offset) }
                 .onFailure(::onRequestCharactersFailure)
                 .onSuccess(::onRequestCharactersSuccess)
         }
@@ -47,6 +49,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private fun onRequestCharactersSuccess(characters: List<CharacterPreview>) {
-        viewState.value = CharactersViewState.Success(characters)
+        currentCharacters.addAll(characters)
+        viewState.value = CharactersViewState.Success(currentCharacters.toImmutableList())
     }
 }

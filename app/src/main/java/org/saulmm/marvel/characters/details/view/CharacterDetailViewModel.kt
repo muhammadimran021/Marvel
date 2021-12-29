@@ -69,7 +69,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
-        e.printStackTrace()
+        Log.e(this::class.simpleName, "onCharacterDetailFailure", e)
         viewState.value = CharacterDetailViewState.Failure
     }
 }

@@ -40,8 +40,11 @@ class ComicViewHolder(
         binding.root.setOnClickListener {
             onComicClick(comic)
         }
-        Glide.with(binding.root)
-            .load(comic.images.random().portraitIncredible)
-            .into(binding.imgComic)
+
+        comic.images.randomOrNull()?.let { image ->
+            Glide.with(binding.root)
+                .load(image.portraitIncredible)
+                .into(binding.imgComic)
+        }
     }
 }
