@@ -3,4 +3,8 @@
     <string name="action_more_info">More Info</string>
     <string name="label_marvel_character">Marvel Character</string>
     <string name="label_nothing_here">Nothing here!</string>
+    <string name="label_something_bad_happened">Uh!, something bad happened</string>
+    <string name="msg_generic_error">Wow, it seems there has been an error contacting the Marvel servers, you can try again, if you have enough courage …</string>
+    <string name="action_try_again">Try again</string>
+    <string name="msg_loading_more">Loading more characters</string>
 </resources>

@@ -31,7 +31,12 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     private val adapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
     private val loadingMoreSnackBar by lazy {
-        Snackbar.make(binding.root, "Loading more characters", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.action_try_again) { onTryAgain() }
+    }
+
+    private val errorSnackBar by lazy {
+        Snackbar.make(binding.root, getString(R.string.label_something_bad_happened), Snackbar.LENGTH_INDEFINITE)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,25 +60,29 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
             viewModel.loadCharacters(lastPosition)
         }
         binding.recyclerCharacters.adapter = adapter
+        // TODO use stubs
+        binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
     }
 
     private fun bindViewState(viewState: CharacterListViewModel.CharactersViewState) {
         when (viewState) {
             is CharacterListViewModel.CharactersViewState.Failure -> {
+                showLoading(false)
                 showFailure(true)
             }
             CharacterListViewModel.CharactersViewState.Loading -> {
                 showLoading(true)
+                showFailure(false)
             }
             is CharacterListViewModel.CharactersViewState.Success -> {
+                showLoading(false)
+                showFailure(false)
                 showCharacters(viewState.characters)
             }
         }
     }
 
     private fun showCharacters(characters: List<CharacterPreview>) {
-        showLoading(false)
-        showFailure(false)
         adapter.submitList(characters)
     }
 
@@ -85,8 +94,28 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         }
     }
 
+    private fun showFailure(show: Boolean) {
+        if (adapter.itemCount == 0) {
+            showFullError(show)
+        } else {
+            showSmallError(show)
+        }
+    }
+
     private fun showFullLoading(show: Boolean) {
         binding.viewLoading.root.isVisible = show
+    }
+
+    private fun showFullError(show: Boolean) {
+        binding.viewError.root.isVisible = show
+    }
+
+    private fun showSmallError(show: Boolean) {
+        if (show) {
+            errorSnackBar.show()
+        } else {
+            errorSnackBar.dismiss()
+        }
     }
 
     private fun showLoadMoreLoading(show: Boolean) {
@@ -97,12 +126,12 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         }
     }
 
-    private fun showFailure(show: Boolean) {
-        showLoading(false)
-    }
-
     private fun onCharacterClick(character: CharacterPreview) {
         showLoading(false)
         (activity as? HomeNavigator)?.showCharacterDetail(character)
+    }
+
+    private fun onTryAgain() {
+        viewModel.tryAgainAction?.invoke()
     }
 }

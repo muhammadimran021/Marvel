@@ -94,7 +94,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
     private fun bindCharacter(character: Character) {
         binding.recyclerComics.isVisible = character.comics.isNotEmpty()
-        binding.containerEmpty.isVisible = character.comics.isEmpty()
+        binding.viewEmpty.root.isVisible = character.comics.isEmpty()
         comicsAdapter.submitList(character.comics)
     }
 
