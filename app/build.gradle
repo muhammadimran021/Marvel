@@ -79,6 +79,7 @@ dependencies {
     testImplementation deps.testing.truth
     testImplementation deps.testing.mockwebserver
     testImplementation deps.testing.coroutines
+    testImplementation deps.testing.mockito
 
     androidTestImplementation deps.android_testing.junit
     androidTestImplementation deps.android_testing.espresso_core
