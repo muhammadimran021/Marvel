@@ -17,7 +17,8 @@ def versions = [
     okhhtp: "4.9.3",
     retrofit: "2.9.0",
     moshi: "1.13.0",
-    glide: "4.12.0"
+    glide: "4.12.0",
+    shrimmer: "0.5.0"
 ]
 
 def versions_testing = [
@@ -43,6 +44,7 @@ deps.material = "com.google.android.material:material:${versions.material}"
 deps.core_ktx = "androidx.core:core-ktx:${versions.androidx_core}"
 deps.constraint_layout = "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}"
 deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
+deps.shrimmer = "com.facebook.shimmer:shimmer:$versions.shrimmer"
 
 def testing = [:]
 testing.junit = "junit:junit:${versions_testing.junit}"

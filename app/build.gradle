@@ -72,6 +72,8 @@ dependencies {
     implementation deps.lifecycle.java8
     implementation deps.lifecycle.runtime
 
+    implementation deps.shrimmer
+
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth
     testImplementation deps.testing.mockwebserver

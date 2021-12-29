@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -92,10 +93,13 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     }
 
     private fun bindCharacter(character: Character) {
+        binding.recyclerComics.isVisible = character.comics.isNotEmpty()
+        binding.txtComicsLabel.isVisible = character.comics.isNotEmpty()
         comicsAdapter.submitList(character.comics)
     }
 
     private fun showLoading(show: Boolean) {
+        binding.viewLoadingComics.root.isVisible = show
     }
 
     private fun onComicClick(comic: Comic) {

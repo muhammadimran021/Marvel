@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     >
 
     <androidx.recyclerview.widget.RecyclerView
@@ -16,11 +17,9 @@
         tools:listitem="@layout/item_character"
         />
 
-    <ProgressBar
-        android:id="@+id/progress_characters_loading"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center"
+    <include
+        android:id="@+id/view_loading"
+        layout="@layout/view_loading_characters_list"
         android:visibility="gone"
         />
 </FrameLayout>
