@@ -102,6 +102,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun onCharacterClick(character: CharacterPreview) {
+        showLoading(false)
         (activity as? HomeNavigator)?.showCharacterDetail(character)
     }
 }
