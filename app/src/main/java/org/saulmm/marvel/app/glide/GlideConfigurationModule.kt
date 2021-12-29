@@ -15,8 +15,10 @@ import org.saulmm.marvel.BuildConfig
 class GlideConfigurationModule : AppGlideModule() {
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        builder.setDefaultTransitionOptions(Drawable::class.java, DrawableTransitionOptions().crossFade())
-        builder.setDefaultTransitionOptions(Bitmap::class.java, BitmapTransitionOptions().crossFade())
-        builder.setLogLevel(if (BuildConfig.DEBUG) Log.VERBOSE else Log.ERROR)
+        builder.apply {
+            setDefaultTransitionOptions(Drawable::class.java, DrawableTransitionOptions().crossFade())
+            setDefaultTransitionOptions(Bitmap::class.java, BitmapTransitionOptions().crossFade())
+            setLogLevel(if (BuildConfig.DEBUG) Log.VERBOSE else Log.ERROR)
+        }
     }
 }
