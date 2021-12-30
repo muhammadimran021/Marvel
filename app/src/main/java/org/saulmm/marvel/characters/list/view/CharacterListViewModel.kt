@@ -47,7 +47,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private fun onRequestCharactersFailure(e: Throwable, offset: Int) {
-        Log.e(this::class.simpleName, "onRequestCharactersFailure", e)
+        // TODO integrate Timber
         tryAgainAction = { loadCharacters(offset) }
         viewState.value = CharactersViewState.Failure(e)
     }
