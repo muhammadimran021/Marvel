@@ -1,6 +1,5 @@
 package org.saulmm.marvel.characters.details.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -13,8 +12,7 @@ import kotlinx.coroutines.launch
 import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
-import org.saulmm.marvel.characters.list.view.CharacterListViewModel
-import javax.inject.Inject
+import java.lang.NullPointerException
 
 class CharacterDetailViewModel @AssistedInject constructor(
     @Assisted val characterPreview: CharacterPreview,
@@ -37,17 +35,14 @@ class CharacterDetailViewModel @AssistedInject constructor(
         fun create(characterPreview: CharacterPreview): CharacterDetailViewModel
     }
 
-    init {
-        loadCharacterDetail()
-    }
-
     private val viewState = MutableStateFlow<CharacterDetailViewState?>(null)
     val onViewState = viewState.asStateFlow()
 
-    sealed class CharacterDetailViewState {
-        object Loading: CharacterDetailViewState()
-        object Failure: CharacterDetailViewState()
-        class Success(val character: Character): CharacterDetailViewState()
+    var tryAgainAction: (() -> Unit)? = null
+        private set
+
+    init {
+        loadCharacterDetail()
     }
 
     private fun loadCharacterDetail() {
@@ -61,15 +56,16 @@ class CharacterDetailViewModel @AssistedInject constructor(
     }
 
     private fun onCharacterDetailSuccess(character: Character?) {
+        tryAgainAction = null
         viewState.value = if (character != null) {
             CharacterDetailViewState.Success(character)
         } else {
-            CharacterDetailViewState.Failure
+            CharacterDetailViewState.Failure(NullPointerException("Character is null"))
         }
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
-        Log.e(this::class.simpleName, "onCharacterDetailFailure", e)
-        viewState.value = CharacterDetailViewState.Failure
+        tryAgainAction = { loadCharacterDetail() }
+        viewState.value = CharacterDetailViewState.Failure(e)
     }
 }

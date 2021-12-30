@@ -22,4 +22,10 @@
         layout="@layout/view_loading_characters_list"
         android:visibility="gone"
         />
+
+    <include
+        android:id="@+id/view_error"
+        layout="@layout/view_connection_issue"
+        android:visibility="gone"
+        />
 </FrameLayout>

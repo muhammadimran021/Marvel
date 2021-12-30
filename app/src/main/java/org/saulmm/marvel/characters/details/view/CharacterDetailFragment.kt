@@ -9,14 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
 import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.characters.data.models.Comic
-import org.saulmm.marvel.characters.details.view.CharacterDetailViewModel.CharacterDetailViewState.*
+import org.saulmm.marvel.characters.details.view.CharacterDetailViewState.*
 import org.saulmm.marvel.databinding.FragmentCharacterDetailBinding
 import org.saulmm.marvel.utils.ext.argument
 import org.saulmm.marvel.utils.ext.launchAndRepeatWithViewLifecycle
@@ -55,6 +54,9 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     private fun setupView() {
         binding.txtTitle.text = characterPreview.name
         binding.recyclerComics.adapter = comicsAdapter
+        binding.viewError.btnTryAgain.setOnClickListener {
+            viewModel.tryAgainAction?.invoke()
+        }
 
         Glide.with(requireContext())
             .load(characterPreview.image.landScapeIncredible)
@@ -71,15 +73,15 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
         }
     }
 
-    private fun bindViewState(viewState: CharacterDetailViewModel.CharacterDetailViewState) {
+    private fun bindViewState(viewState: CharacterDetailViewState) {
         when (viewState) {
-            Failure -> {
-                showFailure(true)
-                showLoading(false)
-            }
             Loading -> {
                 showFailure(false)
                 showLoading(true)
+            }
+            is Failure -> {
+                showFailure(true)
+                showLoading(false)
             }
             is Success -> {
                 showFailure(false)
@@ -90,11 +92,12 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     }
 
     private fun showFailure(show: Boolean) {
+        binding.viewError.root.isVisible = show
     }
 
     private fun bindCharacter(character: Character) {
         binding.recyclerComics.isVisible = character.comics.isNotEmpty()
-        binding.txtComicsLabel.isVisible = character.comics.isNotEmpty()
+        binding.viewEmpty.root.isVisible = character.comics.isEmpty()
         comicsAdapter.submitList(character.comics)
     }
 

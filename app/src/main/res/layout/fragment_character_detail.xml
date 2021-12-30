@@ -70,7 +70,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     tools:listitem="@layout/item_comic"
-                    tools:visibility="visible"
+                    tools:visibility="gone"
                     />
 
                 <include
@@ -78,6 +78,19 @@
                     layout="@layout/view_loading_comics_grid"
                     android:visibility="gone"
                     />
+
+                <include
+                    android:id="@+id/view_empty"
+                    layout="@layout/view_empty"
+                    android:visibility="gone"
+                    />
+
+                <include
+                    android:id="@+id/view_error"
+                    layout="@layout/view_connection_issue"
+                    android:visibility="gone"
+                    />
+
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>
