@@ -88,6 +88,26 @@ class CharacterListViewModelTest {
     }
 
     @Test
+    fun `when viewmodel initializes a loading event is emitted`() = coroutineTestRule.runBlockingTest {
+        characterRepository.stub {
+            onBlocking { characterRepository.characters(offset = any()) }.thenReturn(charactersList)
+        }
+
+        // We want to pause the dispatcher to listen to the event that is sent in the initialization block
+        coroutineTestRule.testDispatcher.pauseDispatcher()
+
+        val viewModel = CharacterListViewModel(characterRepository)
+
+        viewModel.onViewState.test {
+            assertThat(awaitItem()).isNull()
+            assertThat(awaitItem()).isInstanceOf(Loading::class.java)
+            cancelAndIgnoreRemainingEvents()
+        }
+
+        coroutineTestRule.testDispatcher.resumeDispatcher()
+    }
+
+    @Test
     fun `when the repository dispatches a success, loading and success are emitted`() = coroutineTestRule.runBlockingTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenReturn(charactersList)
@@ -102,6 +122,7 @@ class CharacterListViewModelTest {
             assertThat(awaitItem()).isNull()
             assertThat(awaitItem()).isInstanceOf(Loading::class.java)
             assertThat(awaitItem()).isInstanceOf(Success::class.java)
+            cancel()
         }
 
         coroutineTestRule.testDispatcher.resumeDispatcher()

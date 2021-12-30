@@ -1,6 +1,5 @@
 package org.saulmm.marvel.characters.details.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -13,8 +12,7 @@ import kotlinx.coroutines.launch
 import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
-import org.saulmm.marvel.characters.list.view.CharacterListViewModel
-import javax.inject.Inject
+import java.lang.NullPointerException
 
 class CharacterDetailViewModel @AssistedInject constructor(
     @Assisted val characterPreview: CharacterPreview,
@@ -44,12 +42,6 @@ class CharacterDetailViewModel @AssistedInject constructor(
     private val viewState = MutableStateFlow<CharacterDetailViewState?>(null)
     val onViewState = viewState.asStateFlow()
 
-    sealed class CharacterDetailViewState {
-        object Loading: CharacterDetailViewState()
-        object Failure: CharacterDetailViewState()
-        class Success(val character: Character): CharacterDetailViewState()
-    }
-
     private fun loadCharacterDetail() {
         viewModelScope.launch {
             viewState.value = CharacterDetailViewState.Loading
@@ -64,12 +56,12 @@ class CharacterDetailViewModel @AssistedInject constructor(
         viewState.value = if (character != null) {
             CharacterDetailViewState.Success(character)
         } else {
-            CharacterDetailViewState.Failure
+            CharacterDetailViewState.Failure(NullPointerException("Character is null"))
         }
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
-        Log.e(this::class.simpleName, "onCharacterDetailFailure", e)
-        viewState.value = CharacterDetailViewState.Failure
+        // TODO add timber
+        viewState.value = CharacterDetailViewState.Failure(e)
     }
 }
