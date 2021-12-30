@@ -42,6 +42,9 @@ class CharacterDetailViewModel @AssistedInject constructor(
     private val viewState = MutableStateFlow<CharacterDetailViewState?>(null)
     val onViewState = viewState.asStateFlow()
 
+    var tryAgainAction: (() -> Unit)? = null
+        private set
+
     private fun loadCharacterDetail() {
         viewModelScope.launch {
             viewState.value = CharacterDetailViewState.Loading
@@ -53,6 +56,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
     }
 
     private fun onCharacterDetailSuccess(character: Character?) {
+        tryAgainAction = null
         viewState.value = if (character != null) {
             CharacterDetailViewState.Success(character)
         } else {
@@ -61,7 +65,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
-        // TODO add timber
+        tryAgainAction = { loadCharacterDetail() }
         viewState.value = CharacterDetailViewState.Failure(e)
     }
 }

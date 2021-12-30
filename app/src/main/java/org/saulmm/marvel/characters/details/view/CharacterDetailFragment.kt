@@ -54,6 +54,9 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     private fun setupView() {
         binding.txtTitle.text = characterPreview.name
         binding.recyclerComics.adapter = comicsAdapter
+        binding.viewError.btnTryAgain.setOnClickListener {
+            viewModel.tryAgainAction?.invoke()
+        }
 
         Glide.with(requireContext())
             .load(characterPreview.image.landScapeIncredible)
@@ -89,6 +92,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     }
 
     private fun showFailure(show: Boolean) {
+        binding.viewError.root.isVisible = show
     }
 
     private fun bindCharacter(character: Character) {
