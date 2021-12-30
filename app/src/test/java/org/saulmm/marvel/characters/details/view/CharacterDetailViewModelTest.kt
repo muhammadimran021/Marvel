@@ -14,6 +14,7 @@ import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.data.models.Character
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.characters.data.models.Image
+import org.saulmm.marvel.characters.list.view.CharacterListViewModel
 import org.saulmm.marvel.utils.CoroutineTestRule
 
 class CharacterDetailViewModelTest {
@@ -104,5 +105,31 @@ class CharacterDetailViewModelTest {
         }
 
         coroutineTestRule.testDispatcher.resumeDispatcher()
+    }
+
+    @Test
+    fun `when the repository dispatches a failure, a retry action is saved`() = coroutineTestRule.runBlockingTest {
+        val hulkPreview = CharacterPreview(1, "Hulk", Image("hulk", ".jpg"))
+
+        characterRepository.stub {
+            onBlocking { characterRepository.character(id = 1) }.thenThrow(IllegalStateException::class.java)
+        }
+
+        val viewModel = CharacterDetailViewModel(hulkPreview, characterRepository)
+
+        assertThat(viewModel.tryAgainAction).isNotNull()
+    }
+
+    @Test
+    fun `when the repository dispatches a success, a retry action is null`() = coroutineTestRule.runBlockingTest {
+        val hulkPreview = CharacterPreview(1, "Hulk", Image("hulk", ".jpg"))
+
+        characterRepository.stub {
+            onBlocking { characterRepository.character(id = any()) }.thenReturn(any())
+        }
+
+        val viewModel = CharacterDetailViewModel(hulkPreview, characterRepository)
+
+        assertThat(viewModel.tryAgainAction).isNull()
     }
 }

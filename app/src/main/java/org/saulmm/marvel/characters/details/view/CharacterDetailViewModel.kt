@@ -35,15 +35,15 @@ class CharacterDetailViewModel @AssistedInject constructor(
         fun create(characterPreview: CharacterPreview): CharacterDetailViewModel
     }
 
-    init {
-        loadCharacterDetail()
-    }
-
     private val viewState = MutableStateFlow<CharacterDetailViewState?>(null)
     val onViewState = viewState.asStateFlow()
 
     var tryAgainAction: (() -> Unit)? = null
         private set
+
+    init {
+        loadCharacterDetail()
+    }
 
     private fun loadCharacterDetail() {
         viewModelScope.launch {
