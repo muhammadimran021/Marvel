@@ -107,7 +107,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun showFullError(show: Boolean) {
-        binding.viewError.root.isVisible = show
+//        binding.viewError.root.isVisible = show
     }
 
     private fun showSmallError(show: Boolean) {

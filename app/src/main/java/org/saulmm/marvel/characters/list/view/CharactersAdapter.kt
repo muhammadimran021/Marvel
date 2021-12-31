@@ -1,5 +1,6 @@
 package org.saulmm.marvel.characters.list.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -30,7 +31,10 @@ class CharactersAdapter(
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(getItem(position))
 
+        Log.i("coordinator", "Binding item: $position")
+
         if (position == itemCount - 1) {
+            Log.i("coordinator", "Last item reached, position = $position, itemCount - 1 = ${itemCount - 1}")
             onEndOfListReached?.invoke(position)
         }
     }
