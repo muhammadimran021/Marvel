@@ -1,6 +1,7 @@
 package org.saulmm.marvel.characters.list.view
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -31,12 +32,13 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     private val adapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
     private val loadingMoreSnackBar by lazy {
-        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.action_try_again) { onTryAgain() }
+        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE).apply {
+        }
     }
 
     private val errorSnackBar by lazy {
         Snackbar.make(binding.root, getString(R.string.label_something_bad_happened), Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.action_try_again) { onTryAgain() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +61,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         adapter.onEndOfListReached = { lastPosition ->
             viewModel.loadCharacters(lastPosition)
         }
+
         binding.recyclerCharacters.adapter = adapter
         // TODO use stubs
         binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
@@ -107,7 +110,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun showFullError(show: Boolean) {
-//        binding.viewError.root.isVisible = show
+        binding.viewError.root.isVisible = show
     }
 
     private fun showSmallError(show: Boolean) {

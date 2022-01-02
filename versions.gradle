@@ -7,7 +7,7 @@ def plugin_versions = [
 def versions = [
     androidx_core: "1.7.0",
     appcompat: "1.2.0",
-    material: "1.4.0",
+    material: "1.5.0-rc01",
     constraint_layout: "2.1.2",
     lifecycle: "2.4.0",
     hilt: "2.39.1",
