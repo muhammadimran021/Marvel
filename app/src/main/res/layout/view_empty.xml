@@ -19,7 +19,7 @@
         android:layout_marginTop="16dp"
         app:lottie_rawRes="@raw/anim_oops"
         app:lottie_autoPlay="true"
-        tools:background="@color/gray_02"
+        tools:background="?colorSecondary"
         />
 
     <TextView
@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.Marvel.Headline6"
+        android:textColor="?colorPrimary"
         android:alpha=".6"
         android:layout_marginTop="-16dp"
         android:text="@string/label_nothing_here"

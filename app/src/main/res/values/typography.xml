@@ -62,12 +62,12 @@
     </style>
 
     <style name="TextAppearance.Marvel.CollapsingToolbar.Expanded" parent="TextAppearance.Marvel.Headline4">
-        <item name="android:textColor">?colorOnSurface</item>
+        <item name="android:textColor">?colorPrimary</item>
         <item name="font">@font/secularone_regular</item>
     </style>
 
     <style name="TextAppearance.Marvel.CollapsingToolbar.Collapsed" parent="TextAppearance.Marvel.Headline6">
-        <item name="android:textColor">?colorOnSurface</item>
+        <item name="android:textColor">?colorOnPrimaryContainer</item>
         <item name="android:textSize">18sp</item>
         <item name="font">@font/secularone_regular</item>
     </style>

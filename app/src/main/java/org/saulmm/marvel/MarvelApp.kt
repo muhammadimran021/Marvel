@@ -1,6 +1,7 @@
 package org.saulmm.marvel
 
 import android.app.Application
+import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -10,4 +11,8 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class MarvelApp: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        DynamicColors.applyToActivitiesIfAvailable(this)
+    }
 }

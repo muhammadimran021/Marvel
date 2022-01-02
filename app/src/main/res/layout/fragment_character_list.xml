@@ -12,14 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="?colorPrimaryContainer"
             app:expandedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Expanded"
             app:collapsedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Collapsed"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -42,6 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_character"
