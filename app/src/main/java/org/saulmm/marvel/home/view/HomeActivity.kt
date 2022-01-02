@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
+import org.saulmm.marvel.applyEdgeToEdge
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.characters.details.view.CharacterDetailFragment
 import org.saulmm.marvel.characters.list.view.CharacterListFragment
@@ -18,6 +19,7 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.applyEdgeToEdge()
 
         if (savedInstanceState == null) {
             showCharactersList()

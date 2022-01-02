@@ -10,7 +10,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorLoading">@color/gray_02</item>
         <item name="android:windowBackground">@color/gray_03</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
 
         <!-- Typography -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.Marvel.Headline1</item>
