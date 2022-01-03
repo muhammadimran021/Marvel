@@ -1,4 +1,4 @@
-package org.saulmm.marvel
+package org.saulmm.marvel.app
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors

@@ -1,15 +1,10 @@
 package org.saulmm.marvel.characters.list.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
