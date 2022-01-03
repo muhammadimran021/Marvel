@@ -1,6 +1,6 @@
 package org.saulmm.marvel.characters.details.view
 
-import org.saulmm.marvel.characters.data.models.Character
+import org.saulmm.marvel.characters.domain.models.Character
 
 sealed class CharacterDetailViewState {
     object Loading: CharacterDetailViewState()

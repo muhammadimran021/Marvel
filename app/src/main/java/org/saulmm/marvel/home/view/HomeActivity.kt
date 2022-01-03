@@ -2,14 +2,13 @@ package org.saulmm.marvel.home.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.commit
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
 import org.saulmm.marvel.applyEdgeToEdge
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.details.view.CharacterDetailFragment
 import org.saulmm.marvel.characters.list.view.CharacterListFragment
 import org.saulmm.marvel.databinding.ActivityHomeBinding

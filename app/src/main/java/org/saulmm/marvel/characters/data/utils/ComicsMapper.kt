@@ -1,6 +1,6 @@
 package org.saulmm.marvel.characters.data.utils
 
-import org.saulmm.marvel.characters.data.models.Comic
+import org.saulmm.marvel.characters.domain.models.Comic
 import org.saulmm.marvel.characters.data.remote.models.ComicDto
 import org.saulmm.marvel.characters.data.remote.models.ImageDto
 

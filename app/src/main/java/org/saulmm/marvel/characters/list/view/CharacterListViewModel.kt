@@ -1,6 +1,5 @@
 package org.saulmm.marvel.characters.list.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import okhttp3.internal.toImmutableList
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import javax.inject.Inject
 
 @HiltViewModel

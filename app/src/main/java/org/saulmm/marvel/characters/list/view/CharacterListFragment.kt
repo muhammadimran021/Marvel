@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.home.view.HomeNavigator
 import org.saulmm.marvel.utils.ext.launchAndRepeatWithViewLifecycle

@@ -1,11 +1,10 @@
 package org.saulmm.marvel.characters.list.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.ItemCharacterBinding
 
 class CharactersAdapter(

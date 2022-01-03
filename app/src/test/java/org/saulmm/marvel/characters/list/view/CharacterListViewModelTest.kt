@@ -12,8 +12,8 @@ import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
 import org.mockito.kotlin.stub
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.CharacterPreview
-import org.saulmm.marvel.characters.data.models.Image
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.Image
 import org.saulmm.marvel.characters.list.view.CharacterListViewModel.CharactersViewState.*
 import org.saulmm.marvel.utils.CoroutineTestRule
 

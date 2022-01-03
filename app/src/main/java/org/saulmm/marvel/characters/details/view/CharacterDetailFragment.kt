@@ -13,9 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
-import org.saulmm.marvel.characters.data.models.Character
-import org.saulmm.marvel.characters.data.models.CharacterPreview
-import org.saulmm.marvel.characters.data.models.Comic
+import org.saulmm.marvel.characters.domain.models.Character
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.Comic
 import org.saulmm.marvel.characters.details.view.CharacterDetailViewState.*
 import org.saulmm.marvel.databinding.FragmentCharacterDetailBinding
 import org.saulmm.marvel.utils.ext.argument

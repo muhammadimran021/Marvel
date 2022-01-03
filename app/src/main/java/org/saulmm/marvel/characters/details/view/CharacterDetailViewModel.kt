@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.Character
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.Character
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import java.lang.NullPointerException
 
 class CharacterDetailViewModel @AssistedInject constructor(
