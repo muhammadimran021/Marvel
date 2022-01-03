@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Marvel.Toolbar" parent="Widget.Material3.Toolbar.OnSurface" />
+
+    <style name="Widget.Marvel.Toolbar.WithCloseButton">
+        <item name="navigationIcon">@drawable/ic_close_24</item>
+    </style>
+
+    <style name="Widget.Marvel.CollapsingToolbar" parent="Widget.MaterialComponents.CollapsingToolbar">
+        <item name="collapsedTitleTextColor">?colorOnSecondaryContainer</item>
+
+    </style>
+
+    <style name="Widget.Marvel.CollapsingToolbar.ExpandedNoTitle">
+    </style>
+</resources>

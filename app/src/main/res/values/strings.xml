@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Marvel</string>
+    <string name="label_marvel_characters">Marvel Characters</string>
     <string name="action_more_info">More Info</string>
     <string name="label_marvel_character">Marvel Character</string>
     <string name="label_nothing_here">Nothing here!</string>
@@ -25,4 +26,5 @@
 		Aenean ullamcorper dolor non condimentum congue. Aenean mauris nunc, pellentesque at placerat vitae,
 		aliquet quis orci. Curabitur maximus augue ut bibendum sagittis.
 	</string>
+	<string name="label_comics">Comics</string>
 </resources>

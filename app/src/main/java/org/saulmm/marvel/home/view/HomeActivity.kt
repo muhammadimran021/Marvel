@@ -2,6 +2,8 @@ package org.saulmm.marvel.home.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
@@ -39,5 +41,14 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
             add(binding.fragmentContainer.id, characterDetailFragment)
             addToBackStack(characterPreview.name)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

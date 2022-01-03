@@ -8,7 +8,6 @@
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
     android:gravity="center"
-    android:background="?selectableItemBackground"
     android:paddingHorizontal="16dp"
     android:clipToPadding="false"
     android:foreground="?selectableItemBackground"
@@ -51,7 +50,6 @@
                 android:id="@+id/txt_character_headline"
                 android:textAppearance="?textAppearanceSubtitle2"
                 android:textColor="?colorOnPrimaryContainer"
-
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -67,8 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/action_more_info"
-                app:drawableTint="?colorOnPrimaryContainer"
-                app:drawableEndCompat="@drawable/ic_arrow_right"
+                app:drawableEndCompat="@drawable/ic_arrow_right_24"
                 />
         </LinearLayout>
     </LinearLayout>
