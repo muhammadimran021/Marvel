@@ -5,9 +5,11 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
@@ -59,6 +61,21 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun setupView() {
+        binding.fabGoUp.setOnClickListener {
+            binding.recyclerCharacters.scrollToPosition(0)
+            binding.containerAppbar.setExpanded(true)
+        }
+
+        binding.recyclerCharacters.setOnScrollChangeListener { _, _, _, _, _ ->
+            val hasScrolled = binding.recyclerCharacters.canScrollVertically(-1)
+            if (hasScrolled && !binding.fabGoUp.isVisible) {
+                binding.fabGoUp.show()
+            }
+
+            if (!hasScrolled && binding.fabGoUp.isVisible) {
+                binding.fabGoUp.hide()
+            }
+        }
         adapter.onEndOfListReached = { lastPosition ->
             viewModel.loadCharacters(lastPosition)
         }

@@ -69,4 +69,17 @@
         android:layout_gravity="center"
         android:visibility="gone"
         />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_go_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="22dp"
+        android:text="@string/action_go_up"
+        android:visibility="gone"
+        app:backgroundTint="?colorTertiaryContainer"
+        app:tint="?colorOnTertiaryContainer"
+        app:icon="@drawable/ic_arrow_up_16"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
