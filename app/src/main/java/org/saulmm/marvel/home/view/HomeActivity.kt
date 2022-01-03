@@ -31,15 +31,15 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
     override fun showCharactersList() {
         val characterListFragment = CharacterListFragment.newInstance()
         supportFragmentManager.commit {
-            add(binding.fragmentContainer.id, characterListFragment)
+            add(binding.fragmentContainer.id, characterListFragment, CharacterListFragment.TAG)
         }
     }
 
     override fun showCharacterDetail(characterPreview: CharacterPreview) {
         val characterDetailFragment = CharacterDetailFragment.newInstance(characterPreview)
         supportFragmentManager.commit {
-            replace(binding.fragmentContainer.id, characterDetailFragment)
-            addToBackStack(characterPreview.name)
+            replace(binding.fragmentContainer.id, characterDetailFragment, CharacterDetailFragment.TAG)
+            addToBackStack(CharacterDetailFragment.TAG)
         }
     }
 

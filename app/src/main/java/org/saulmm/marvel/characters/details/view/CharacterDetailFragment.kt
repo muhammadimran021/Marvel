@@ -27,6 +27,7 @@ import javax.inject.Inject
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     companion object {
         const val EXTRA_CHARACTER_PREVIEW = "extra_character_preview"
+        const val TAG = "CharacterDetailFragment"
 
         fun newInstance(characterPreview: CharacterPreview): CharacterDetailFragment {
             return CharacterDetailFragment().apply {

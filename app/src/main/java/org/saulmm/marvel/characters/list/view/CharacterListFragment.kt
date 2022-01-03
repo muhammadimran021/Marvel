@@ -22,6 +22,7 @@ import org.saulmm.marvel.utils.ext.viewBinding
 @AndroidEntryPoint
 class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     companion object {
+        const val TAG = "CharacterListFragment"
         fun newInstance(): CharacterListFragment {
             return CharacterListFragment()
         }
