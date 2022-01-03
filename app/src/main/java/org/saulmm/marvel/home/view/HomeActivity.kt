@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.commit
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
 import org.saulmm.marvel.applyEdgeToEdge
@@ -36,9 +37,13 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
     }
 
     override fun showCharacterDetail(characterPreview: CharacterPreview) {
-        val characterDetailFragment = CharacterDetailFragment.newInstance(characterPreview)
+        val detailFragment = CharacterDetailFragment.newInstance(characterPreview).apply {
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
+        }
+
         supportFragmentManager.commit {
-            replace(binding.fragmentContainer.id, characterDetailFragment, CharacterDetailFragment.TAG)
+            replace(binding.fragmentContainer.id, detailFragment, CharacterDetailFragment.TAG)
             addToBackStack(CharacterDetailFragment.TAG)
         }
     }
