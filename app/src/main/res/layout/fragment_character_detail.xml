@@ -1,29 +1,65 @@
-<androidx.core.widget.NestedScrollView
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:windowBackground"
     >
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/container_appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?colorSurface"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:liftOnScroll="true"
         >
 
-        <ImageView
-            android:id="@+id/img_character"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/container_collapsing"
             android:layout_width="match_parent"
             android:layout_height="224dp"
-            android:scaleType="fitXY"
-            tools:src="@tools:sample/backgrounds/scenic"
-            />
+            app:contentScrim="?colorSecondaryContainer"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Expanded"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Collapsed"
+            app:expandedTitleTextColor="@android:color/transparent"
+            app:collapsedTitleTextColor="?colorOnSecondaryContainer"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleCollapseMode="fade"
+            app:title="@string/app_name"
+            >
+
+            <ImageView
+                android:id="@+id/img_character"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:fitsSystemWindows="true"
+                tools:src="@tools:sample/backgrounds/scenic"
+                />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.Marvel.Toolbar.WithCloseButton"
+                android:layout_width="match_parent"
+                android:background="@android:color/transparent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp"
             >
@@ -33,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?textAppearanceHeadline4"
-                android:textColor="?colorOnSurface"
+                android:textColor="?colorPrimary"
                 tools:text="Captain America"
                 />
 
@@ -42,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?textAppearanceSubtitle1"
-                android:textColor="?colorOnSurface"
+                android:textColor="?colorOnSecondaryContainer"
                 android:text="@string/label_marvel_character"
                 />
 
@@ -52,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?textAppearanceHeadline5"
                 android:layout_marginTop="24dp"
-                android:text="Comics"
+                android:text="@string/label_comics"
                 />
 
             <FrameLayout
@@ -90,8 +126,8 @@
                     layout="@layout/view_connection_issue"
                     android:visibility="gone"
                     />
-
             </FrameLayout>
         </LinearLayout>
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

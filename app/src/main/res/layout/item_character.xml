@@ -8,11 +8,11 @@
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
     android:gravity="center"
-    android:background="?selectableItemBackground"
     android:paddingHorizontal="16dp"
     android:clipToPadding="false"
     android:foreground="?selectableItemBackground"
     app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
     >
 
     <LinearLayout
@@ -25,7 +25,6 @@
             android:id="@+id/img_character"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            tools:background="@color/gray_02"
             android:contentDescription="@null"
             tools:src="@tools:sample/avatars"
             />
@@ -40,15 +39,17 @@
 
             <TextView
                 android:id="@+id/txt_character_title"
-                android:textAppearance="?textAppearanceHeadline6"
+                android:textAppearance="?textAppearanceHeadline5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Captain America"
+                android:textColor="?colorOnPrimaryContainer"
                 />
 
             <TextView
                 android:id="@+id/txt_character_headline"
                 android:textAppearance="?textAppearanceSubtitle2"
+                android:textColor="?colorOnPrimaryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -59,12 +60,12 @@
             <TextView
                 android:id="@+id/btn_view_more"
                 android:textAppearance="?textAppearanceButton"
+                android:textColor="?colorOnPrimaryContainer"
                 android:paddingVertical="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/action_more_info"
-                app:drawableEndCompat="@drawable/ic_arrow_right"
-                app:drawableTint="?colorOnSurface"
+                app:drawableEndCompat="@drawable/ic_arrow_right_24"
                 />
         </LinearLayout>
     </LinearLayout>

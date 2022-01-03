@@ -1,15 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Marvel" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Color -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="colorLoading">@color/gray_00</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    <style name="Theme.Marvel" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="colorLoading">?colorSecondary</item>
 
         <!-- Typography -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.Marvel.Headline1</item>

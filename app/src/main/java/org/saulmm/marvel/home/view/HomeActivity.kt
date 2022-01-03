@@ -2,9 +2,13 @@ package org.saulmm.marvel.home.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.commit
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
+import org.saulmm.marvel.applyEdgeToEdge
 import org.saulmm.marvel.characters.data.models.CharacterPreview
 import org.saulmm.marvel.characters.details.view.CharacterDetailFragment
 import org.saulmm.marvel.characters.list.view.CharacterListFragment
@@ -18,6 +22,7 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.applyEdgeToEdge()
 
         if (savedInstanceState == null) {
             showCharactersList()
@@ -27,15 +32,28 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
     override fun showCharactersList() {
         val characterListFragment = CharacterListFragment.newInstance()
         supportFragmentManager.commit {
-            add(binding.fragmentContainer.id, characterListFragment)
+            add(binding.fragmentContainer.id, characterListFragment, CharacterListFragment.TAG)
         }
     }
 
     override fun showCharacterDetail(characterPreview: CharacterPreview) {
-        val characterDetailFragment = CharacterDetailFragment.newInstance(characterPreview)
-        supportFragmentManager.commit {
-            replace(binding.fragmentContainer.id, characterDetailFragment)
-            addToBackStack(characterPreview.name)
+        val detailFragment = CharacterDetailFragment.newInstance(characterPreview).apply {
+            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
         }
+
+        supportFragmentManager.commit {
+            replace(binding.fragmentContainer.id, detailFragment, CharacterDetailFragment.TAG)
+            addToBackStack(CharacterDetailFragment.TAG)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

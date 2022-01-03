@@ -3,6 +3,7 @@ package org.saulmm.marvel.characters.details.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import javax.inject.Inject
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     companion object {
         const val EXTRA_CHARACTER_PREVIEW = "extra_character_preview"
+        const val TAG = "CharacterDetailFragment"
 
         fun newInstance(characterPreview: CharacterPreview): CharacterDetailFragment {
             return CharacterDetailFragment().apply {
@@ -52,6 +54,8 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     }
 
     private fun setupView() {
+        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+        binding.containerCollapsing.title = characterPreview.name
         binding.txtTitle.text = characterPreview.name
         binding.recyclerComics.adapter = comicsAdapter
         binding.viewError.btnTryAgain.setOnClickListener {

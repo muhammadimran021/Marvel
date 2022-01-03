@@ -21,7 +21,7 @@
         app:lottie_rawRes="@raw/anim_connection_issue"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        tools:background="@color/gray_02"
+        tools:background="?colorSecondary"
         />
 
     <TextView
@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.Marvel.Headline6"
+        android:textColor="?colorPrimary"
         android:alpha=".6"
         android:text="@string/label_something_bad_happened"
         />

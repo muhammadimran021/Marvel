@@ -1,12 +1,15 @@
 package org.saulmm.marvel.characters.list.view
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
@@ -21,6 +24,7 @@ import org.saulmm.marvel.utils.ext.viewBinding
 @AndroidEntryPoint
 class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     companion object {
+        const val TAG = "CharacterListFragment"
         fun newInstance(): CharacterListFragment {
             return CharacterListFragment()
         }
@@ -31,12 +35,13 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     private val adapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
     private val loadingMoreSnackBar by lazy {
-        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.action_try_again) { onTryAgain() }
+        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE).apply {
+        }
     }
 
     private val errorSnackBar by lazy {
         Snackbar.make(binding.root, getString(R.string.label_something_bad_happened), Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.action_try_again) { onTryAgain() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,9 +61,25 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun setupView() {
+        binding.fabGoUp.setOnClickListener {
+            binding.recyclerCharacters.scrollToPosition(0)
+            binding.containerAppbar.setExpanded(true)
+        }
+
+        binding.recyclerCharacters.setOnScrollChangeListener { _, _, _, _, _ ->
+            val hasScrolled = binding.recyclerCharacters.canScrollVertically(-1)
+            if (hasScrolled && !binding.fabGoUp.isVisible) {
+                binding.fabGoUp.show()
+            }
+
+            if (!hasScrolled && binding.fabGoUp.isVisible) {
+                binding.fabGoUp.hide()
+            }
+        }
         adapter.onEndOfListReached = { lastPosition ->
             viewModel.loadCharacters(lastPosition)
         }
+
         binding.recyclerCharacters.adapter = adapter
         // TODO use stubs
         binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
