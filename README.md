@@ -1,15 +1,15 @@
 # Marvel Characters
 
-'Marvel characters' is a simple application to display information about the characters of the marvel universe. It uses different patterns and libraries from modern android development, such as Material3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
+'Marvel characters' is a simple application to display information about the characters of the Marvel universe. 
 
-It contains two screens. One shows a list of characters and another with detailed information about a specific character.
+It uses different patterns and libraries from modern android development, such as Material 3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
 
-Both screens are implemented using fragments:
+It contains two screens. One shows a list of characters and another with detailed information about a specific character. Both screens are implemented using fragments:
 
 - [`CharacterListFragment`]()
 - [`CharacterDetailFragment`]()
 
-A fragment does not know anything about the other fragment. There is a host activity in charge of managing the navigation implementing the [`HomeNavigator`]() interface. This is how the navigation is done when clicking on a character item to show the item detail.
+A fragment does not know anything about the other fragment. There is a host activity in charge of managing the navigation by implementing the [`HomeNavigator`]() interface. This is how the navigation is done when clicking on a character item to show the item detail.
 
 **Contents**
 
@@ -20,7 +20,7 @@ A fragment does not know anything about the other fragment. There is a host acti
 
 ## Architecture
 
-The architecture of this project is based on my interpretation of '[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)' an architecture pattern focused on the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Finding the following modules:
+The architecture of this project is based on my interpretation of '[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)', an architecture pattern focused on the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Finding the following modules:
 
 ### The domain layer
 
@@ -31,10 +31,6 @@ These entities are used as a 'source of truth' at the boundaries of the other la
 ### The data layer
 
 The responsibility of the data layer is to expose the data to other parts of the app, and to abstract the source of the data.
-
-
-
-To implement the data layer, the repository pattern has been used to extend, to other layers, a single entry point to obtain the data of the marvel characters.
 
 For simplicity, the character repository only uses one data source, which implements data extraction from the remote Marvel API. 
 
