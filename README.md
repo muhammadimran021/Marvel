@@ -13,7 +13,6 @@ A fragment does not know anything about the other fragment. There is a host acti
 
 **Contents**
 
-*   [Navigation](#Navigation)
 *   [Architecture](#Architecture)
 *   [Libraries](#Libraries)
 *   [UI](#UI)
@@ -21,19 +20,19 @@ A fragment does not know anything about the other fragment. There is a host acti
 
 ## Architecture
 
-The architecture of the project is based on my **opinionated interpretation** of the architectural pattern [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), adapted to this project. 
-
-It is also aligned on the recently published: ['Guide to app architecture'](https://developer.android.com/jetpack/guide) from the official docs. The main goal followed is the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) between the different layers identified.
-
-*   [The domain layer](#The domain layer)
-*   [The data layer](#The data layer)
-*   [The UI layer](#The UI layer)
+The architecture of this project is based on my interpretation of '[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)' an architecture pattern focused on the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Finding the following modules:
 
 ### The domain layer
 
-In this simple project the domain layer is simple enough to only contain the entities, or models used by the other layers.
+Given the simplicity of the project, the domain layer is only made up of entities, if there were any complex business logic, it would be implemented in this layer in the form of use cases.
+
+These entities are used as a 'source of truth' at the boundaries of the other layers. For example, the repository exposes a list of characters that are consumed in the UI layer by the view models.
 
 ### The data layer
+
+The responsibility of the data layer is to expose the data to other parts of the app, and to abstract the source of the data.
+
+
 
 To implement the data layer, the repository pattern has been used to extend, to other layers, a single entry point to obtain the data of the marvel characters.
 
@@ -42,51 +41,48 @@ For simplicity, the character repository only uses one data source, which implem
 It would be easy to implement another data source with a database or any other persistence method to enrich this layer. This is the reason why there is an interface to implement a data source.
 
 
-
 #### Concrete benefit of using a repository with data sources
 
-From the Marvel API point of view, to send to the view a list of comics with their images and a portion of text, **it is a complex job.** 
+One more time, given the simplicity of the project, access to the data source is implemented with a repository that uses a single data source.
 
-To perform this task we need to do the following:
+The data source communicates with the Marvel API and returns the data to the repository, using the domain entity: `CharacterPreview`, or `Character`.
 
-1. Fetch the list of comics for a given characters.
+The detail screen shows the details of a character and all the comics where it appears. A comic, in our domain, contains an image and a portion of text.
 
-```kotlin
-@GET("/v1/public/characters")
-suspend fun characterDetail(@Query("id") id: Int): MarvelApiResponseDto<CharacterDetailDto>
-```
+Using the Marvel API, this is a somewhat complex task as it requires using multiple endpoints:
 
-2. For a given comic we must fetch its details by using each URL provided in the list of comics per comic.
-```kotlin
-@GET
-suspend fun comic(@Url url: String): MarvelApiResponseDto<ComicDto>
-```
+1. Get the details of a character.
 
-Thanks to the use of data sources, the repository simply expects a list of `List<Comic>` . All the other implementation details for the Marvel API are encapsulated in the `CharacterRemoteDatasource`. 
+2. For each comic, fetch the comic detail endpoint to extract the image and text.
 
-Similarly, this method is very easily testable by simply creating a test for that class, see `CharacterTemoteDataSourceTest`.
+Thanks to the use of data sources, the repository simply expects a list of characters. All the other implementation details related to the Marvel API are encapsulated inside the `CharacterRemoteDatasource`, making it easily testable.
 
 ### The UI layer
 
-The UI layer is made up of the elements of the android SDK, the implementation of the views and other logic related to the user interface.
-
-For the UI layer, it again aligns with the guide from [official docs] (https://developer.android.com/jetpack/guide/ui-layer).
+The UI layer is composed of the elements of the android SDK, the implementation of the views and other logic related to the user interface. it aligns with the guide from [official docs](https://developer.android.com/jetpack/guide/ui-layer).
 
 #### Unidirectional data flow
 
-We could say that the user interface is what the app says the user should see. We could define a series of UI states that model the way the view can be at any given time.
+We could say that the user interface should reflect what the app wants it to see at a specific moment. This could be modeled as states of the UI at different points in time.
 
-For example, a screen that shows a list of characters may be in a loading state (when fetching the data), in a success state (when the characters are fetched successfuly), or in a failure state (when something happened when loading the characters). 
+For example, the character list may be loading, displaying the characters, or displaying an error if something unexpected occurs.
 
+In this way, we could define three UI states: `Loading`,` Success` & `Failure`.
 ```kotlin
-    sealed class CharactersViewState {
-        object Loading: CharactersViewState()
-        class Failure(e: Throwable): CharactersViewState()
-        class Success(val characters: List<CharacterPreview>): CharactersViewState()
-    }
+  sealed class CharactersViewState {
+      object Loading: CharactersViewState()
+      class Failure(e: Throwable): CharactersViewState()
+      class Success(val characters: List<CharacterPreview>): CharactersViewState()
+  }
 ```
 
-The view, in this case a fragment, **observes a single source** of states, and **reacts** when the viewmodel (in charge of producing states) emits a new state. When the view receives a new view state, its immediately bound into the UI. This way a view state is shown atomically, avoiding issues where multiples sources or truth are used.
+The view, in this case a fragment, **observes a single source** of states, and **reacts** when the viewmodel (in charge of producing states) emits a new state.
+
+A ViewModel is a great component for storing current UI state, as it survives fragment's lifecycle. Thanks to the use of `StateFlow` to store the state, it is trivial to restore the last state if a fragment is recreated due to a configuration change.
+
+When a fragment receives a new view state, it's immediately bound into the UI. This way, all views in a fragment are perfectly set to the given view state atomically, avoiding issues where multiples sources or truth are used.
+
+
 
 This concept is also known as Unidirectional DataFlow. It provides severals benefits like, as the source of the view state is isolated, it's cycle of emissions can be tested easily. 
 
