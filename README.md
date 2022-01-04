@@ -104,3 +104,11 @@ Dagger-Hilt has been used for dependency injection. Hilt provides a very simple 
 
 Assist injection has also been used, for, among other uses, to be able to insert dynamic parameters in the creation of the viewmodels. [Assisted injection application]().
 
+### Signing a Marvel Request
+
+The Marvel api, in order to authorize a request, requires that each endpoint must include a `ts` parameter and a` hash`  that is computed with the private key and a timestamp.
+
+To avoid dirtying each endpoint or duplicating the authorization logic, an OkHttp interceptor has been implemented.It adds the necessary parameters to be signed.
+
+In this way, the logic is also correctly encapsulated to be able to be tested.
+
