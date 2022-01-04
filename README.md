@@ -1,6 +1,15 @@
 # Marvel Characters
 
-'Marvel Characters' is a sample project focused on showing practices of modern android development focusing on architecture, ui and jetpack libraries.
+'Marvel characters' is a simple application to display information about the characters of the marvel universe. It uses different patterns and libraries from modern android development, such as Material3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
+
+It contains two screens. One shows a list of characters and another with detailed information about a specific character.
+
+Both screens are implemented using fragments:
+
+- [`CharacterListFragment`]()
+- [`CharacterDetailFragment`]()
+
+A fragment does not know anything about the other fragment. There is a host activity in charge of managing the navigation implementing the [`HomeNavigator`]() interface. This is how the navigation is done when clicking on a character item to show the item detail.
 
 **Contents**
 
@@ -9,17 +18,6 @@
 *   [Libraries](#Libraries)
 *   [UI](#UI)
 *   [Considerations](#Considerations)
-
-## Navigation
-
-This application is a very simple mobile client of the marvel API. Composed of two screens: list of characters, detail of a character.
-
-Fragments have been chosen to implement these screens, activities could have been used instead, however, fragments have been used as a lighter and more reusable method than opening a particular activity.
-
-- [`CharacterListFragment`]()
-- [`CharacterDetailFragment`]()
-
-However, a fragment does not know anything about the other fragment, these assume that its host activity is able to manage navigation implementing the [`HomeNavigator`]() interface. This way they both can and navigate, for example from the list screen to the detail screen when a character is clicked.
 
 ## Architecture
 
@@ -43,7 +41,6 @@ For simplicity, the character repository only uses one data source, which implem
 
 It would be easy to implement another data source with a database or any other persistence method to enrich this layer. This is the reason why there is an interface to implement a data source.
 
-### The UI layer
 
 
 #### Concrete benefit of using a repository with data sources
@@ -69,9 +66,56 @@ Thanks to the use of data sources, the repository simply expects a list of `List
 
 Similarly, this method is very easily testable by simply creating a test for that class, see `CharacterTemoteDataSourceTest`.
 
+### The UI layer
+
+The UI layer is made up of the elements of the android SDK, the implementation of the views and other logic related to the user interface.
+
+For the UI layer, it again aligns with the guide from [official docs] (https://developer.android.com/jetpack/guide/ui-layer).
+
+#### Unidirectional data flow
+
+We could say that the user interface is what the app says the user should see. We could define a series of UI states that model the way the view can be at any given time.
+
+For example, a screen that shows a list of characters may be in a loading state (when fetching the data), in a success state (when the characters are fetched successfuly), or in a failure state (when something happened when loading the characters). 
+
+```kotlin
+    sealed class CharactersViewState {
+        object Loading: CharactersViewState()
+        class Failure(e: Throwable): CharactersViewState()
+        class Success(val characters: List<CharacterPreview>): CharactersViewState()
+    }
+```
+
+The view, in this case a fragment, **observes a single source** of states, and **reacts** when the viewmodel (in charge of producing states) emits a new state. When the view receives a new view state, its immediately bound into the UI. This way a view state is shown atomically, avoiding issues where multiples sources or truth are used.
+
+This concept is also known as Unidirectional DataFlow. It provides severals benefits like, as the source of the view state is isolated, it's cycle of emissions can be tested easily. 
+
+```kotlin
+// ...
+viewModel.onViewState.test {
+    assertThat(awaitItem()).isNull()
+    assertThat(awaitItem()).isInstanceOf(Loading::class.java)
+    assertThat(awaitItem()).isInstanceOf(Success::class.java)
+}
+
+```
 
 ## Libraries
 
+### Dagger - Hilt
+
+Dagger-Hilt has been used for dependency injection. Hilt provides a very simple mechanism to inject dependencies with minimal boilerplate into android components. Helping the testability and cleanliness of the code.
+
+Assist injection has also been used, for, among other uses, to be able to insert dynamic parameters in the creation of the viewmodels. [Assisted injection application]().
+
+
+
 ## UI
 
+
 ## Considerations
+
+- Paging has been implemented in the character list but the **jetpack paging library has not been used**. Paging is simply accomplished with a callback from the [`CharacterListAdapter`]() that notifies when the end of the list has been reached.
+  
+  <br>
+  The reason behind is to have prioritized the architecture, since the paging library, while providing a good experience when loading elements, is a bit aggressive in terms of architecture modeling.
