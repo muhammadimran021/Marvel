@@ -14,8 +14,6 @@ A fragment does not know anything about the other fragment. There is a host acti
 **Contents**
 
 *   [Architecture](#Architecture)
-*   [Libraries](#Libraries)
-*   [UI](#UI)
 *   [Considerations](#Considerations)
 
 ## Architecture
@@ -34,7 +32,7 @@ The responsibility of the data layer is to expose the data to other parts of the
 
 For simplicity, the character repository only uses one data source, which implements data extraction from the remote Marvel API. 
 
-It would be easy to implement another data source with a database or any other persistence method to enrich this layer. This is the reason why there is an interface to implement a data source.
+It would be easy to implement another data source with a database or any other persistence method to enrich this layer. This is the reason why there is an interface to represent a data source.
 
 
 #### Concrete benefit of using a repository with data sources
@@ -92,7 +90,13 @@ viewModel.onViewState.test {
 
 ```
 
-## Libraries
+## Considerations
+
+### Paging
+
+Paging has been implemented in the character list but the **jetpack paging library has not been used**. Paging is simply accomplished with a callback from the [`CharacterListAdapter`]() that notifies when the end of the list has been reached.
+  
+The reason behind is to have prioritized the architecture, since the paging library, while providing a good experience when loading elements, is a bit aggressive in terms of architecture modeling.
 
 ### Dagger - Hilt
 
@@ -100,14 +104,3 @@ Dagger-Hilt has been used for dependency injection. Hilt provides a very simple 
 
 Assist injection has also been used, for, among other uses, to be able to insert dynamic parameters in the creation of the viewmodels. [Assisted injection application]().
 
-
-
-## UI
-
-
-## Considerations
-
-- Paging has been implemented in the character list but the **jetpack paging library has not been used**. Paging is simply accomplished with a callback from the [`CharacterListAdapter`]() that notifies when the end of the list has been reached.
-  
-  <br>
-  The reason behind is to have prioritized the architecture, since the paging library, while providing a good experience when loading elements, is a bit aggressive in terms of architecture modeling.
