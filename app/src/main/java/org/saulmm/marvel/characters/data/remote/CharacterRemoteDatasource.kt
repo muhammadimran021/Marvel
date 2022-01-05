@@ -5,7 +5,9 @@ import org.saulmm.marvel.characters.data.CharacterDatasource
 import org.saulmm.marvel.characters.domain.models.Character
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiService
+import org.saulmm.marvel.characters.data.remote.models.CharacterItemDto
 import org.saulmm.marvel.characters.data.remote.models.CharacterOrderDto
+import org.saulmm.marvel.characters.data.remote.models.CharacterPreviewDto
 import org.saulmm.marvel.characters.data.utils.toCharacter
 import org.saulmm.marvel.characters.data.utils.toComic
 import org.saulmm.marvel.di.IoDispatcher
@@ -19,7 +21,7 @@ class CharacterRemoteDatasource @Inject constructor(
         return apiService.characters(
             offset = offset,
             orderBy = CharacterOrderDto.MODIFIED.value
-        ).pagedResults.results.map { it.toCharacter() }
+        ).pagedResults.results.map(CharacterPreviewDto::toCharacter)
     }
 
     override suspend fun character(id: Int): Character? {
@@ -27,8 +29,9 @@ class CharacterRemoteDatasource @Inject constructor(
             val characterDetail = apiService.characterDetail(id).pagedResults.results.firstOrNull()
                 ?: return@withContext null
 
+            // Map every comic resource URI to a request to be run in parallel
             val comicDetailsRequests = characterDetail.comics.items
-                .mapNotNull { it.resourceUri }
+                .mapNotNull(CharacterItemDto::resourceUri)
                 .map { async { apiService.comic(it) }
             }
 
