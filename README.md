@@ -106,9 +106,14 @@ Assist injection has also been used, for, among other uses, to be able to insert
 
 ### Signing a Marvel Request
 
-The Marvel api, in order to authorize a request, requires that each endpoint must include a `ts` parameter and a` hash`  that is computed with the private key and a timestamp.
+The Marvel API, in order to [authorize a request](https://developer.marvel.com/documentation/authorization), requires that each endpoint must include a `ts` parameter and a` hash`  that is computed with the private key and a timestamp.
 
-To avoid dirtying each endpoint or duplicating the authorization logic, an OkHttp interceptor has been implemented.It adds the necessary parameters to be signed.
+To avoid dirtying each endpoint or duplicating the authorization logic, a `MarvelApiServiceAuthenticatorInterceptor` has been implemented that adds the necessary parameters to be signed on each request.
 
-In this way, the logic is also correctly encapsulated to be able to be tested.
+In this way, the logic is encapsulated, and it's [easily testable](MarvelApiServiceAuthenticatorInterceptorTest).
 
+### Mock web server in unit tests
+
+[**MockWebServer**](https://github.com/square/okhttp/tree/master/mockwebserver) it's used to test elements of the network layer, such as the signing of requests or the correct mapping of network entities to domain entities.
+
+This library offers an easy and **deterministic** way to behave like a real network service, without the inconveniences of variable wait times, network problems or changes to the server. Allowing to load existing JSON payloads in the resources folder from the unit tests source root.
