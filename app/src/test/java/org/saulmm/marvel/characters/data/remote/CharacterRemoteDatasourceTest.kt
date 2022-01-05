@@ -24,13 +24,12 @@ import org.saulmm.marvel.utils.fromFileReplacingUrls
 class CharacterRemoteDatasourceTest {
     private val mockWebServer = MockWebServer()
     private lateinit var marvelApi: MarvelApiService
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
     private val mockWebServerUrl = mockWebServer.url("/").toString()
 
     @Before
     @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(Dispatchers.Unconfined)
         marvelApi = CharactersModule.provideMarvelApiService(
             endPoint = mockWebServerUrl,
             apiAuthenticator = MarvelApiServiceAuthenticatorInterceptor("", ""),
@@ -101,6 +100,5 @@ class CharacterRemoteDatasourceTest {
     fun tearDown() {
         mockWebServer.shutdown()
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
     }
 }
