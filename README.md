@@ -6,10 +6,10 @@ It uses different patterns and libraries from modern android development, such a
 
 It contains two screens. One shows a list of characters and another with detailed information about a specific character. Both screens are implemented using fragments:
 
-- [`CharacterListFragment`]()
-- [`CharacterDetailFragment`]()
+- [`CharacterListFragment`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/list/view/CharacterListFragment.kt)
+- [`CharacterDetailFragment`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/details/view/CharacterDetailFragment.kt)
 
-A fragment does not know anything about the other fragment. There is a host activity in charge of managing the navigation by implementing the [`HomeNavigator`]() interface. This is how the navigation is done when clicking on a character item to show the item detail.
+A fragment does not know anything about the other fragment. There is a host activity in charge of managing the navigation by implementing the [`HomeNavigator`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/home/view/HomeNavigator.kt) interface. This is how the navigation is done when clicking on a character item to show the item detail.
 
 **Contents**
 
