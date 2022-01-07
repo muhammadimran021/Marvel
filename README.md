@@ -81,7 +81,7 @@ When a fragment receives a new view state, it's immediately bound into the UI. T
 
 
 
-This concept is also known as Unidirectional DataFlow. It provides severals benefits like, as the source of the view state is isolated, it's cycle of emissions can be tested easily. 
+This concept is also known as [Unidirectional Data Flow](https://en.wikipedia.org/wiki/Unidirectional_Data_Flow_(computer_science)). It provides several benefits like, as the source of the view state is isolated, it's cycle of emissions can be tested easily. 
 
 ```kotlin
 // ...
