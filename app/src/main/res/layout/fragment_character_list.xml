@@ -21,11 +21,11 @@
             android:id="@+id/container_collapsing"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Expanded"
             app:collapsedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Collapsed"
+            app:expandedTitleTextColor="?colorPrimary"
             app:collapsedTitleTextColor="?colorOnSecondaryContainer"
             app:contentScrim="?colorSecondaryContainer"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Expanded"
-            app:expandedTitleTextColor="?colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/label_marvel_characters"
             app:titleCollapseMode="scale"
@@ -79,7 +79,7 @@
         android:text="@string/action_go_up"
         android:visibility="gone"
         app:backgroundTint="?colorTertiaryContainer"
-        app:tint="?colorOnTertiaryContainer"
         app:icon="@drawable/ic_arrow_up_16"
+        app:tint="?colorOnTertiaryContainer"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
