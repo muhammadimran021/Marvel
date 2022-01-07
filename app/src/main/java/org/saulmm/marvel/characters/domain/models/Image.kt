@@ -1,6 +1,7 @@
 package org.saulmm.marvel.characters.domain.models
 
 import org.saulmm.marvel.characters.data.remote.models.MarvelImageVariant
+import java.io.Serializable
 
 /**
  * An image in the marvel API is represented as the path + variant + extension.
@@ -11,7 +12,7 @@ import org.saulmm.marvel.characters.data.remote.models.MarvelImageVariant
 data class Image(
     val path: String,
     val extension: String,
-) {
+): Serializable {
     val squareLarge: String
         get() = "$path/${MarvelImageVariant.SQUARE_XLARGE.value}.$extension"
 
