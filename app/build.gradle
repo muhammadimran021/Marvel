@@ -78,6 +78,7 @@ dependencies {
 
     implementation deps.shrimmer
     implementation deps.lottie
+    implementation deps.logcat
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth
