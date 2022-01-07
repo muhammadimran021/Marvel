@@ -32,7 +32,7 @@ class ComicsAdapter(
 }
 
 class ComicViewHolder(
-    val binding: ItemComicBinding,
+    private val binding: ItemComicBinding,
     val onComicClick: (Comic) -> Unit
 ): RecyclerView.ViewHolder(binding.root) {
 
