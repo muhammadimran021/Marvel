@@ -32,7 +32,7 @@ These entities are used as a 'source of truth' at the boundaries of the other la
 
 ### The data layer
 
-The responsibility of the data layer is to expose the data to other parts of the app, and to abstract the source of the data.
+The responsibility of the data layer is to expose character's data to other parts of the app, and to abstract the source of the data.
 
 For simplicity, the character repository only uses one data source, which implements data extraction from the remote Marvel API. 
 
