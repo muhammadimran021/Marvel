@@ -13,8 +13,8 @@ import org.saulmm.marvel.R
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.home.view.HomeNavigator
-import org.saulmm.marvel.utils.ext.launchAndRepeatWithViewLifecycle
-import org.saulmm.marvel.utils.ext.viewBinding
+import org.saulmm.marvel.app.utils.ext.launchAndRepeatWithViewLifecycle
+import org.saulmm.marvel.app.utils.ext.viewBinding
 
 @AndroidEntryPoint
 class CharacterListFragment: Fragment(R.layout.fragment_character_list) {

@@ -18,7 +18,7 @@ import org.saulmm.marvel.characters.data.remote.api.MarvelApiService
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiServiceAuthenticatorInterceptor
 import org.saulmm.marvel.characters.di.CharactersModule
 import org.saulmm.marvel.app.di.EndpointModule
-import org.saulmm.marvel.utils.fromFileReplacingUrls
+import org.saulmm.marvel.app.utils.fromFileReplacingUrls
 
 class CharacterRemoteDatasourceTest {
     private val mockWebServer = MockWebServer()

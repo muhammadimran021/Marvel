@@ -1,4 +1,4 @@
-package org.saulmm.marvel.utils.ext
+package org.saulmm.marvel.app.utils.ext
 
 import android.content.Context
 import android.content.res.Configuration

@@ -12,7 +12,7 @@ import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.details.view.CharacterDetailFragment
 import org.saulmm.marvel.characters.list.view.CharacterListFragment
 import org.saulmm.marvel.databinding.ActivityHomeBinding
-import org.saulmm.marvel.utils.ext.viewBinding
+import org.saulmm.marvel.app.utils.ext.viewBinding
 
 @AndroidEntryPoint
 class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {

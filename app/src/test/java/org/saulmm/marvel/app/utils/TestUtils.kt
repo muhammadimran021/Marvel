@@ -1,4 +1,4 @@
-package org.saulmm.marvel.utils
+package org.saulmm.marvel.app.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.*

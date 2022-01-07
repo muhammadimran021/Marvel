@@ -2,7 +2,7 @@ package org.saulmm.marvel.characters.data.remote.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import org.saulmm.marvel.utils.ext.md5
+import org.saulmm.marvel.app.utils.ext.md5
 import java.time.Clock
 import java.time.Instant
 

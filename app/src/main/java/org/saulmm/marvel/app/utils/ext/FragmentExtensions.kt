@@ -1,4 +1,4 @@
-package org.saulmm.marvel.utils.ext
+package org.saulmm.marvel.app.utils.ext
 
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.saulmm.marvel.utils.FragmentViewBindingDelegate
+import org.saulmm.marvel.app.utils.FragmentViewBindingDelegate
 
 @Suppress("unused")
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T)
