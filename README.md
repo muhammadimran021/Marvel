@@ -105,7 +105,7 @@ The reason behind is to have prioritized the architecture, since the paging libr
 
 Dagger-Hilt has been used for dependency injection. Hilt provides a very simple mechanism to inject dependencies with minimal boilerplate into android components. Helping the testability and cleanliness of the code.
 
-Assist injection has also been used, for, among other uses, to be able to insert dynamic parameters in the creation of the viewmodels. [Assisted injection application]().
+Assist injection has also been used, for, among other uses, to be able to insert [dynamic parameters](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/details/view/CharacterDetailViewModel.kt#L20) in the creation of the view models.
 
 ### Signing a Marvel Request
 
