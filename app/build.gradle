@@ -40,6 +40,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '11'
+        freeCompilerArgs += [
+                '-Xopt-in=kotlin.RequiresOptIn',
+                '-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+        ]
     }
 }
 
@@ -86,3 +90,4 @@ dependencies {
     androidTestImplementation deps.android_testing.junit
     androidTestImplementation deps.android_testing.espresso_core
 }
+

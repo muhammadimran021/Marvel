@@ -15,7 +15,7 @@ import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.domain.models.Image
 import org.saulmm.marvel.characters.list.view.CharacterListViewModel.CharactersViewState.*
-import org.saulmm.marvel.utils.CoroutineTestRule
+import org.saulmm.marvel.utils.runViewModelTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CharacterListViewModelTest {
@@ -25,9 +25,6 @@ class CharacterListViewModelTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
 
     private val charactersList = listOf(
         CharacterPreview(1, "Iron Man", Image("iron_man", ".jpg")),
@@ -41,43 +38,59 @@ class CharacterListViewModelTest {
         MockitoAnnotations.openMocks(this)
     }
 
-
     @Test
-    fun `when an error happens in the repository, an error is emitted`() = coroutineTestRule.runBlockingTest {
+    fun `when an error happens in the repository, an error is emitted`() = runViewModelTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenThrow(IllegalStateException::class.java)
         }
 
         val viewModel = CharacterListViewModel(characterRepository)
 
-        assertThat(viewModel.onViewState.value).isInstanceOf(Failure::class.java)
+        viewModel.onViewState.test {
+            awaitItem() // null
+            awaitItem() // Loading
+            assertThat(awaitItem())
+        }
     }
 
     @Test
-    fun `when the repository dispatches characters, these are emitted as success`() = coroutineTestRule.runBlockingTest {
+    fun `when the repository dispatches characters, these are emitted as success`() = runViewModelTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenReturn(charactersList)
         }
 
         val viewModel = CharacterListViewModel(characterRepository)
 
-        val characters = (viewModel.onViewState.value as Success).characters
-        assertThat(characters.size).isEqualTo(charactersList.size)
+        viewModel.onViewState.test {
+            awaitItem() // null
+            awaitItem() // Loading
+            awaitItem() // Success
+            cancel()
+
+            val characters = (viewModel.onViewState.value as Success).characters
+            assertThat(characters.size).isEqualTo(charactersList.size)
+        }
     }
 
     @Test
-    fun `when the repository dispatches a failure, a retry action is saved`() = coroutineTestRule.runBlockingTest {
+    fun `when the repository dispatches a failure, a retry action is saved`() = runViewModelTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenThrow(IllegalStateException::class.java)
         }
 
         val viewModel = CharacterListViewModel(characterRepository)
 
-        assertThat(viewModel.tryAgainAction).isNotNull()
+        viewModel.onViewState.test {
+            awaitItem() // null
+            awaitItem() // Loading
+            awaitItem() // Failure
+            assertThat(viewModel.tryAgainAction).isNotNull()
+            cancel()
+        }
     }
 
     @Test
-    fun `when the repository dispatches a success, a retry action is null`() = coroutineTestRule.runBlockingTest {
+    fun `when the repository dispatches a success, a retry action is null`() = runViewModelTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenReturn(charactersList)
         }
@@ -88,13 +101,10 @@ class CharacterListViewModelTest {
     }
 
     @Test
-    fun `when viewmodel initializes a loading event is emitted`() = coroutineTestRule.runBlockingTest {
+    fun `when viewmodel initializes a loading event is emitted`() = runViewModelTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenReturn(charactersList)
         }
-
-        // We want to pause the dispatcher to listen to the event that is sent in the initialization block
-        coroutineTestRule.testDispatcher.pauseDispatcher()
 
         val viewModel = CharacterListViewModel(characterRepository)
 
@@ -103,18 +113,13 @@ class CharacterListViewModelTest {
             assertThat(awaitItem()).isInstanceOf(Loading::class.java)
             cancelAndIgnoreRemainingEvents()
         }
-
-        coroutineTestRule.testDispatcher.resumeDispatcher()
     }
 
     @Test
-    fun `when the repository dispatches a success, loading and success are emitted`() = coroutineTestRule.runBlockingTest {
+    fun `when the repository dispatches a success, loading and success are emitted`() = runViewModelTest {
         characterRepository.stub {
             onBlocking { characterRepository.characters(offset = any()) }.thenReturn(charactersList)
         }
-
-        // We want to pause the dispatcher to listen to the event that is sent in the initialization block
-        coroutineTestRule.testDispatcher.pauseDispatcher()
 
         val viewModel = CharacterListViewModel(characterRepository)
 
@@ -124,7 +129,5 @@ class CharacterListViewModelTest {
             assertThat(awaitItem()).isInstanceOf(Success::class.java)
             cancel()
         }
-
-        coroutineTestRule.testDispatcher.resumeDispatcher()
     }
 }
