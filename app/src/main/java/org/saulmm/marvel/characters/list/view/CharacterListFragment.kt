@@ -28,7 +28,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
 
     private val binding by viewBinding(FragmentCharacterListBinding::bind)
     private val viewModel: CharacterListViewModel by viewModels()
-    private val adapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
+    private val charactersAdapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
     private val loadingMoreSnackBar by lazy {
         Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
@@ -71,11 +71,11 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
                 binding.fabGoUp.hide()
             }
         }
-        adapter.onEndOfListReached = { lastPosition ->
+        charactersAdapter.onEndOfListReached = { lastPosition ->
             viewModel.loadCharacters(lastPosition)
         }
 
-        binding.recyclerCharacters.adapter = adapter
+        binding.recyclerCharacters.adapter = charactersAdapter
         binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
     }
 
@@ -86,23 +86,23 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
                 showFailure(true)
             }
             CharacterListViewModel.CharactersViewState.Loading -> {
-                showLoading(true)
                 showFailure(false)
+                showLoading(true)
             }
             is CharacterListViewModel.CharactersViewState.Success -> {
-                showLoading(false)
                 showFailure(false)
+                showLoading(false)
                 showCharacters(viewState.characters)
             }
         }
     }
 
     private fun showCharacters(characters: List<CharacterPreview>) {
-        adapter.submitList(characters)
+        charactersAdapter.submitList(characters)
     }
 
     private fun showLoading(show: Boolean) {
-        if (adapter.itemCount == 0) {
+        if (charactersAdapter.itemCount == 0) {
             showFullLoading(show)
         } else {
             showLoadMoreLoading(show)
@@ -110,7 +110,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun showFailure(show: Boolean) {
-        if (adapter.itemCount == 0) {
+        if (charactersAdapter.itemCount == 0) {
             showFullError(show)
         } else {
             showSmallError(show)
