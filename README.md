@@ -20,9 +20,9 @@ Fragments are independent, one does not know anything about the other fragment. 
 
 The architecture of this project is based on my interpretation of '[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)', an architecture pattern focused on the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Finding the following modules:
 
-*   [The domain layer](#The domain layer)
-*   [The data layer](#The data layer)
-*   [The UI layer](#The UI layer)
+*   [The domain layer](#the-domain-layer)
+*   [The data layer](#the-data-layer)
+*   [The UI layer](#the-ui-layer)
 
 ### The domain layer
 
