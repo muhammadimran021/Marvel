@@ -1,4 +1,4 @@
-package org.saulmm.marvel.utils
+package org.saulmm.marvel.app.utils
 
 import okhttp3.mockwebserver.MockResponse
 import java.io.InputStream

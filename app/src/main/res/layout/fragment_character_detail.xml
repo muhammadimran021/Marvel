@@ -27,7 +27,6 @@
             app:collapsedTitleTextColor="?colorOnSecondaryContainer"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleCollapseMode="fade"
-            app:title="@string/app_name"
             >
 
             <ImageView
@@ -36,6 +35,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:fitsSystemWindows="true"
+                android:contentDescription="@null"
                 tools:src="@tools:sample/backgrounds/scenic"
                 />
 
@@ -54,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
         >
 
         <LinearLayout

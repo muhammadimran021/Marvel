@@ -1,7 +1,7 @@
 package org.saulmm.marvel.characters.data
 
-import org.saulmm.marvel.characters.data.models.Character
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.Character
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 
 class CharacterRepository(
     val remote: CharacterDatasource

@@ -2,7 +2,7 @@ package org.saulmm.marvel.characters.list.view
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.ItemCharacterBinding
 
 class CharacterViewHolder(

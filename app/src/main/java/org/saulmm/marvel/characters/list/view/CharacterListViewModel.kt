@@ -1,15 +1,16 @@
 package org.saulmm.marvel.characters.list.view
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import logcat.LogPriority
+import logcat.logcat
 import okhttp3.internal.toImmutableList
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,7 +48,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     private fun onRequestCharactersFailure(e: Throwable, offset: Int) {
-        // TODO integrate Timber
+        logcat(LogPriority.ERROR) { "Failure with offset: $offset, $e"}
         tryAgainAction = { loadCharacters(offset) }
         viewState.value = CharactersViewState.Failure(e)
     }

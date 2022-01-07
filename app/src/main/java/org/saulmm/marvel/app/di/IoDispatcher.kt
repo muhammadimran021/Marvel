@@ -1,4 +1,4 @@
-package org.saulmm.marvel.di
+package org.saulmm.marvel.app.di
 
 import javax.inject.Qualifier
 

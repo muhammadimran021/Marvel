@@ -19,7 +19,8 @@ def versions = [
     moshi: "1.13.0",
     glide: "4.12.0",
     shrimmer: "0.5.0",
-    lottie: "4.2.2"
+    lottie: "4.2.2",
+    logcat : "0.1"
 ]
 
 def versions_testing = [
@@ -50,6 +51,7 @@ deps.constraint_layout = "androidx.constraintlayout:constraintlayout:${versions.
 deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
 deps.shrimmer = "com.facebook.shimmer:shimmer:$versions.shrimmer"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
+deps.logcat = "com.squareup.logcat:logcat:$versions.logcat"
 
 def testing = [:]
 testing.junit = "junit:junit:${versions_testing.junit}"

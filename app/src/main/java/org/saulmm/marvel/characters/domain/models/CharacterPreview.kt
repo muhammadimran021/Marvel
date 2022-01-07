@@ -1,4 +1,4 @@
-package org.saulmm.marvel.characters.data.models
+package org.saulmm.marvel.characters.domain.models
 
 import java.io.Serializable
 

@@ -21,7 +21,6 @@ interface MarvelApiService {
         @Query("id") id: Int
     ): MarvelApiResponseDto<CharacterDetailDto>
 
-
     @GET
     suspend fun comic(@Url url: String): MarvelApiResponseDto<ComicDto>
 }

@@ -1,4 +1,4 @@
-package org.saulmm.marvel.di
+package org.saulmm.marvel.app.di
 
 import dagger.Module
 import dagger.Provides
@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    const val READ_TIMEOUT_LIMIT_MINS = 2
+    private const val READ_TIMEOUT_LIMIT_MINS = 2L
+    private const val CONNECT_TIMEOUT_LIMIT_MINS = 3L
 
     @Provides
     fun provideOkHttpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -33,7 +33,7 @@ object NetworkModule {
         return OkHttpClient.Builder()
             .retryOnConnectionFailure(true)
             .addInterceptor(httpLoggingInterceptor)
-            .readTimeout(3, TimeUnit.MINUTES)
-            .connectTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(CONNECT_TIMEOUT_LIMIT_MINS, TimeUnit.MINUTES)
+            .connectTimeout(READ_TIMEOUT_LIMIT_MINS, TimeUnit.MINUTES)
     }
 }

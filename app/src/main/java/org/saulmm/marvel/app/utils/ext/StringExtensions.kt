@@ -1,4 +1,4 @@
-package org.saulmm.marvel.utils.ext
+package org.saulmm.marvel.app.utils.ext
 
 import java.math.BigInteger
 import java.security.MessageDigest

@@ -1,25 +1,21 @@
 package org.saulmm.marvel.characters.list.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.app.utils.ext.isScrollable
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.home.view.HomeNavigator
-import org.saulmm.marvel.utils.ext.launchAndRepeatWithViewLifecycle
-import org.saulmm.marvel.utils.ext.viewBinding
+import org.saulmm.marvel.app.utils.ext.launchAndRepeatWithViewLifecycle
+import org.saulmm.marvel.app.utils.ext.viewBinding
 
 @AndroidEntryPoint
 class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
@@ -35,8 +31,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     private val adapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
     private val loadingMoreSnackBar by lazy {
-        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE).apply {
-        }
+        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
     }
 
     private val errorSnackBar by lazy {
@@ -81,7 +76,6 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         }
 
         binding.recyclerCharacters.adapter = adapter
-        // TODO use stubs
         binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
     }
 
@@ -124,10 +118,12 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun showFullLoading(show: Boolean) {
+        binding.recyclerCharacters.isScrollable = !show
         binding.viewLoading.root.isVisible = show
     }
 
     private fun showFullError(show: Boolean) {
+        binding.recyclerCharacters.isScrollable = !show
         binding.viewError.root.isVisible = show
     }
 

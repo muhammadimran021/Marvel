@@ -9,9 +9,11 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import logcat.LogPriority
+import logcat.logcat
 import org.saulmm.marvel.characters.data.CharacterRepository
-import org.saulmm.marvel.characters.data.models.Character
-import org.saulmm.marvel.characters.data.models.CharacterPreview
+import org.saulmm.marvel.characters.domain.models.Character
+import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import java.lang.NullPointerException
 
 class CharacterDetailViewModel @AssistedInject constructor(
@@ -65,6 +67,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
+        logcat(LogPriority.ERROR) { e.toString() }
         tryAgainAction = { loadCharacterDetail() }
         viewState.value = CharacterDetailViewState.Failure(e)
     }

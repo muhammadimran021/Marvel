@@ -5,7 +5,7 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.view.View
 import android.view.Window
-import org.saulmm.marvel.utils.ext.isDarkMode
+import org.saulmm.marvel.app.utils.ext.isDarkMode
 
 fun Window.applyEdgeToEdge() {
     val isLightBackground = !(context.isDarkMode ?: false)

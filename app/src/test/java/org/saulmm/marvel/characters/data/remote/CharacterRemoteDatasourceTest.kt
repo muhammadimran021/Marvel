@@ -3,7 +3,6 @@ package org.saulmm.marvel.characters.data.remote
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -18,19 +17,18 @@ import org.junit.Test
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiService
 import org.saulmm.marvel.characters.data.remote.api.MarvelApiServiceAuthenticatorInterceptor
 import org.saulmm.marvel.characters.di.CharactersModule
-import org.saulmm.marvel.di.EndpointModule
-import org.saulmm.marvel.utils.fromFileReplacingUrls
+import org.saulmm.marvel.app.di.EndpointModule
+import org.saulmm.marvel.app.utils.fromFileReplacingUrls
 
 class CharacterRemoteDatasourceTest {
     private val mockWebServer = MockWebServer()
     private lateinit var marvelApi: MarvelApiService
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
     private val mockWebServerUrl = mockWebServer.url("/").toString()
 
     @Before
     @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(Dispatchers.Unconfined)
         marvelApi = CharactersModule.provideMarvelApiService(
             endPoint = mockWebServerUrl,
             apiAuthenticator = MarvelApiServiceAuthenticatorInterceptor("", ""),
@@ -101,6 +99,5 @@ class CharacterRemoteDatasourceTest {
     fun tearDown() {
         mockWebServer.shutdown()
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
     }
 }

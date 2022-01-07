@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.saulmm.marvel.characters.data.models.Comic
+import org.saulmm.marvel.characters.domain.models.Comic
 import org.saulmm.marvel.databinding.ItemComicBinding
 
 class ComicsAdapter(
@@ -32,7 +32,7 @@ class ComicsAdapter(
 }
 
 class ComicViewHolder(
-    val binding: ItemComicBinding,
+    private val binding: ItemComicBinding,
     val onComicClick: (Comic) -> Unit
 ): RecyclerView.ViewHolder(binding.root) {
 

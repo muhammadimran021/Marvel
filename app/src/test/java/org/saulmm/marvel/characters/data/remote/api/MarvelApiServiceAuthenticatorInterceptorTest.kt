@@ -10,8 +10,8 @@ import org.junit.Before
 import org.junit.Test
 import org.saulmm.marvel.characters.data.remote.models.CharacterOrderDto
 import org.saulmm.marvel.characters.di.CharactersModule
-import org.saulmm.marvel.utils.ext.md5
-import org.saulmm.marvel.utils.fromFile
+import org.saulmm.marvel.app.utils.ext.md5
+import org.saulmm.marvel.app.utils.fromFile
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
