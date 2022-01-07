@@ -57,7 +57,7 @@ Thanks to the use of data sources, the repository simply expects a list of chara
 
 ### The UI layer
 
-The UI layer is composed with elements from the android SDK, the implementation of the views and other logic related to the user interface. it aligns with the guide from [official docs](https://developer.android.com/jetpack/guide/ui-layer).
+The UI layer is composed with elements from the android SDK, the implementation of the views and other logic related to the user interface. it aligns with 'UI layer' guide from [official docs](https://developer.android.com/jetpack/guide/ui-layer).
 
 We could say that the user interface should reflect what the app wants it to see at a specific moment. This could be modeled as states of the UI at different points in time.
 
