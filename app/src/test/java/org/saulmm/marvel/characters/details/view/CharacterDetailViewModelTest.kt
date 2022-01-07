@@ -3,6 +3,7 @@ package org.saulmm.marvel.characters.details.view
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -10,11 +11,11 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
 import org.mockito.kotlin.stub
+import org.saulmm.marvel.app.utils.CoroutineDispatcherRule
 import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.domain.models.Character
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.domain.models.Image
-import org.saulmm.marvel.app.utils.runViewModelTest
 
 class CharacterDetailViewModelTest {
 
@@ -22,8 +23,7 @@ class CharacterDetailViewModelTest {
     lateinit var characterRepository: CharacterRepository
 
     @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
-
+    val coroutineDispatcherRule = CoroutineDispatcherRule()
 
     @Before
     fun setUp() {
@@ -31,7 +31,7 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `when viewmodel initializes, a loading event is emitted`() = runViewModelTest {
+    fun `when viewmodel initializes, a loading event is emitted`() = runTest {
         characterRepository.stub {
             onBlocking { characterRepository.character(any()) }.thenReturn(any())
         }
@@ -49,7 +49,7 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `when the character loads successfully, a success view state is emitted`() = runViewModelTest {
+    fun `when the character loads successfully, a success view state is emitted`() = runTest {
         val hulkPreview = CharacterPreview(1, "Hulk", Image("hulk", ".jpg"))
         val hulk = Character(id = 1, name = "Hulk", comics = emptyList())
 
@@ -71,7 +71,7 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `when the character load fails, a error view state is emitted`() = runViewModelTest {
+    fun `when the character load fails, a error view state is emitted`() = runTest {
         val hulkPreview = CharacterPreview(1, "Hulk", Image("hulk", ".jpg"))
 
         characterRepository.stub {
@@ -92,7 +92,7 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `when the repository dispatches a failure, a retry action is saved`() = runViewModelTest {
+    fun `when the repository dispatches a failure, a retry action is saved`() = runTest {
         val hulkPreview = CharacterPreview(1, "Hulk", Image("hulk", ".jpg"))
 
         characterRepository.stub {
@@ -112,7 +112,7 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `when the repository dispatches a success, a retry action is null`() = runViewModelTest {
+    fun `when the repository dispatches a success, a retry action is null`() = runTest {
         val hulkPreview = CharacterPreview(1, "Hulk", Image("hulk", ".jpg"))
 
         characterRepository.stub {
