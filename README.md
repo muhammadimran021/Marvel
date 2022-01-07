@@ -64,13 +64,8 @@ We could say that the user interface should reflect what the app wants the user 
 For example, the character list may be loading, displaying the characters, or displaying an error if something unexpected occurs.
 
 In this way, we could define three UI states: `Loading`,` Success` & `Failure`.
-```kotlin
-  sealed class CharactersViewState {
-      object Loading: CharactersViewState()
-      class Failure(e: Throwable): CharactersViewState()
-      class Success(val characters: List<CharacterPreview>): CharactersViewState()
-  }
-```
+
+https://github.com/saulmm/marvel/blob/205001cb9642c94935b25583ffd57250bb4c2e0f/app/src/main/java/org/saulmm/marvel/characters/list/view/CharacterListViewModel.kt#L21-L25
 
 The view, in this case a fragment, **observes a single source** of states, and **reacts** when the viewmodel (in charge of producing states) emits a new state.
 
