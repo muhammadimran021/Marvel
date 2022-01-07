@@ -53,7 +53,7 @@ Using the Marvel API, this is a somewhat complex task as it requires using multi
 
 2. Get every comic detail, using the links provided by the detail of a character.
 
-Thanks to the use of data sources, the repository simply expects a list of characters. All the other implementation details related to the Marvel API are encapsulated inside the `CharacterRemoteDatasource`, making it easily testable.
+Thanks to the use of data sources, the repository simply expects a list of characters. All the other implementation details related to the Marvel API are encapsulated inside the [`CharacterRemoteDatasource`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/data/remote/CharacterRemoteDatasource.kt), making it [easily testable](https://github.com/saulmm/marvel/blob/main/app/src/test/java/org/saulmm/marvel/characters/data/remote/CharacterRemoteDatasourceTest.kt).
 
 ### The UI layer
 
