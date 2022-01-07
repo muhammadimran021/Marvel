@@ -51,7 +51,7 @@ Using the Marvel API, this is a somewhat complex task as it requires using multi
 
 1. Get the details of a character.
 
-2. For each comic, fetch the comic detail endpoint to extract the image and text.
+2. Get every comic detail, using the links provided by the detail of a character.
 
 Thanks to the use of data sources, the repository simply expects a list of characters. All the other implementation details related to the Marvel API are encapsulated inside the `CharacterRemoteDatasource`, making it easily testable.
 
