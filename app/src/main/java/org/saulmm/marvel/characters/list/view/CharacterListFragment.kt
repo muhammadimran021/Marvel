@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
+import org.saulmm.marvel.app.utils.ext.isScrollable
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.home.view.HomeNavigator
@@ -119,10 +120,12 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun showFullLoading(show: Boolean) {
+        binding.recyclerCharacters.isScrollable = !show
         binding.viewLoading.root.isVisible = show
     }
 
     private fun showFullError(show: Boolean) {
+        binding.recyclerCharacters.isScrollable = !show
         binding.viewError.root.isVisible = show
     }
 
