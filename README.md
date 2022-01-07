@@ -111,7 +111,7 @@ Assist injection has also been used, for, among other uses, to be able to insert
 
 The Marvel API, in order to [authorize a request](https://developer.marvel.com/documentation/authorization), requires that each endpoint must include a `ts` parameter and a` hash`  that is computed with the private key and a timestamp.
 
-To avoid dirtying each endpoint or duplicating the authorization logic, a [`MarvelApiServiceAuthenticatorInterceptor`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/data/remote/api/MarvelApiServiceAuthenticatorInterceptor.kt) has been implemented that adds the necessary parameters to be signed on each request.
+To avoid dirtying each endpoint or duplicating the authorization logic, a [`MarvelApiServiceAuthenticatorInterceptor`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/data/remote/api/MarvelApiServiceAuthenticatorInterceptor.kt) has been implemented that adds the necessary parameters to sign each request.
 
 In this way, the logic is encapsulated, and it's [easily testable](https://github.com/saulmm/marvel/blob/a5d802042d3247d6bf62fd5a40170c7d418ff3df/app/src/test/java/org/saulmm/marvel/characters/data/remote/api/MarvelApiServiceAuthenticatorInterceptorTest.kt).
 
