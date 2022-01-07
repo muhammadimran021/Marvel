@@ -31,8 +31,7 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     private val adapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
     private val loadingMoreSnackBar by lazy {
-        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE).apply {
-        }
+        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
     }
 
     private val errorSnackBar by lazy {
@@ -77,7 +76,6 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         }
 
         binding.recyclerCharacters.adapter = adapter
-        // TODO use stubs
         binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
     }
 
