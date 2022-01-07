@@ -24,7 +24,7 @@ The architecture of this project is based on my interpretation of '[Clean Archit
 
 Given the simplicity of the project, the domain layer is only made up of entities, if there were any complex business logic, it would be implemented in this layer in the form of use cases.
 
-These entities are used as a 'source of truth' at the boundaries of the other layers. For example, the repository exposes a list of characters that are consumed in the UI layer by the view models.
+These entities are used as a 'source of truth' at the boundaries of the other layers. For example, repository in the data layer exposes a list of characters that are consumed in the UI layer by the view models.
 
 ### The data layer
 
