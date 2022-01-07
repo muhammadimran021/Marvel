@@ -43,7 +43,7 @@ It would be easy to implement another data source with a database or any other p
 
 Given the simplicity of the project, access to the data source is implemented with a repository that uses a single data source.
 
-The data source communicates with the Marvel API and returns the data to the repository, using the domain entity: `CharacterPreview`, or `Character`.
+The data source communicates with the Marvel API and returns the data to the repository, using a domain entity: [`CharacterPreview`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/domain/models/Character.kt), or [`Character`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/domain/models/Character.kt).
 
 The detail screen shows the details of a character and all the comics where it appears. A comic, in our domain, contains an image and a portion of text.
 
