@@ -20,6 +20,10 @@ Fragments are independent, one does not know anything about the other fragment. 
 
 The architecture of this project is based on my interpretation of '[Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)', an architecture pattern focused on the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). Finding the following modules:
 
+*   [The domain layer](#The domain layer)
+*   [The data layer](#The data layer)
+*   [The UI layer](#The UI layer)
+
 ### The domain layer
 
 Given the simplicity of the project, the domain layer is only made up of entities, if there were any complex business logic, it would be implemented in this layer in the form of use cases.
@@ -54,8 +58,6 @@ Thanks to the use of data sources, the repository simply expects a list of chara
 ### The UI layer
 
 The UI layer is composed of the elements of the android SDK, the implementation of the views and other logic related to the user interface. it aligns with the guide from [official docs](https://developer.android.com/jetpack/guide/ui-layer).
-
-#### Unidirectional data flow
 
 We could say that the user interface should reflect what the app wants it to see at a specific moment. This could be modeled as states of the UI at different points in time.
 
