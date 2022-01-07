@@ -75,7 +75,7 @@ In this way, we could define three UI states: `Loading`,` Success` & `Failure`.
 
 The view, in this case a fragment, **observes a single source** of states, and **reacts** when the viewmodel (in charge of producing states) emits a new state.
 
-A ViewModel is a great component for storing current UI state, as it survives fragment's lifecycle. Thanks to the use of `StateFlow` to store the state, it is trivial to restore the last state if a fragment is recreated due to a configuration change.
+A [`ViewModel`](https://developer.android.com/topic/libraries/architecture/viewmodel) is a great component for storing current UI state, as it survives fragment's lifecycle and other configuration changes. Thanks to the use of `StateFlow` to store the state, it is trivial to restore the last state if a fragment is recreated due to a configuration change.
 
 When a fragment receives a new view state, it's immediately bound into the UI. This way, all views in a fragment are perfectly set to the given view state atomically, avoiding issues where multiples sources or truth are used.
 
