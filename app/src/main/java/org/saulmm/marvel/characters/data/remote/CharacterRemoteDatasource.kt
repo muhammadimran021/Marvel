@@ -10,7 +10,7 @@ import org.saulmm.marvel.characters.data.remote.models.CharacterOrderDto
 import org.saulmm.marvel.characters.data.remote.models.CharacterPreviewDto
 import org.saulmm.marvel.characters.data.utils.toCharacter
 import org.saulmm.marvel.characters.data.utils.toComic
-import org.saulmm.marvel.di.IoDispatcher
+import org.saulmm.marvel.app.di.IoDispatcher
 import javax.inject.Inject
 
 class CharacterRemoteDatasource @Inject constructor(
