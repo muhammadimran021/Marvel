@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
+import org.saulmm.marvel.app.utils.Html
 import org.saulmm.marvel.characters.domain.models.Character
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.domain.models.Comic
@@ -42,7 +43,12 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
     private val binding by viewBinding(FragmentCharacterDetailBinding::bind)
     private val characterPreview: CharacterPreview by argument(EXTRA_CHARACTER_PREVIEW)
-    private val comicsAdapter: ComicsAdapter by lazy { ComicsAdapter(layoutInflater, ::onComicClick) }
+    private val comicsAdapter: ComicsAdapter by lazy {
+        ComicsAdapter(
+            layoutInflater,
+            ::onComicClick
+        )
+    }
 
     private val viewModel: CharacterDetailViewModel by viewModels {
         CharacterDetailViewModel.provideFactory(viewModelFactory, characterPreview)
@@ -120,11 +126,11 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
                 .into(comicBinding.imgComic)
         }
 
-        comicBinding.txtTitle.text = comic.title
-        comicBinding.txtParagraph.apply {
-            isVisible = !comic.previewText.isNullOrEmpty()
-            text = comic.previewText
+        comic.previewText?.takeIf { it.isNotEmpty() }?.let {
+            comicBinding.txtParagraph.text = Html.fromHtml(it)
         }
+
+        comicBinding.txtTitle.text = comic.title
 
         MaterialAlertDialogBuilder(requireContext())
             .setView(comicBinding.root)

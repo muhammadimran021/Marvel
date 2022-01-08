@@ -10,5 +10,5 @@
     <string name="msg_loading_more">Loading more characters</string>
 	<string name="label_comics">Comics</string>
 	<string name="action_go_up">Go up!</string>
-    <string name="action_fantastic">Fantastic!</string>
+    <string name="placeholder_no_preview">No sample text available</string>
 </resources>
