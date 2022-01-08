@@ -24,13 +24,14 @@ class CharacterRemoteDatasource @Inject constructor(
         ).pagedResults.results.map(CharacterPreviewDto::toCharacter)
     }
 
-    override suspend fun character(id: Int): Character? {
+    override suspend fun character(id: Int, comicsLimit: Int): Character? {
         return withContext(io) {
             val characterDetail = apiService.characterDetail(id).pagedResults.results.firstOrNull()
                 ?: return@withContext null
 
             // Map every comic resource URI to a request to be run in parallel
             val comicDetailsRequests = characterDetail.comics.items
+                .take(comicsLimit)
                 .mapNotNull(CharacterItemDto::resourceUri)
                 .map { async { apiService.comic(it) }
             }
