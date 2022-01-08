@@ -2,13 +2,13 @@ package org.saulmm.marvel.characters.details.view
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -21,6 +21,7 @@ import org.saulmm.marvel.databinding.FragmentCharacterDetailBinding
 import org.saulmm.marvel.app.utils.ext.argument
 import org.saulmm.marvel.app.utils.ext.launchAndRepeatWithViewLifecycle
 import org.saulmm.marvel.app.utils.ext.viewBinding
+import org.saulmm.marvel.databinding.DialogComicDetailBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -110,6 +111,23 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     }
 
     private fun onComicClick(comic: Comic) {
-        Toast.makeText(requireContext(), comic.toString(), Toast.LENGTH_SHORT).show()
+        val comicBinding = DialogComicDetailBinding
+            .inflate(layoutInflater, null, false)
+
+        comic.images.randomOrNull()?.let {
+            Glide.with(binding.root)
+                .load(it.portraitIncredible)
+                .into(comicBinding.imgComic)
+        }
+
+        comicBinding.txtTitle.text = comic.title
+        comicBinding.txtParagraph.apply {
+            isVisible = !comic.previewText.isNullOrEmpty()
+            text = comic.previewText
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(comicBinding.root)
+            .show()
     }
 }
