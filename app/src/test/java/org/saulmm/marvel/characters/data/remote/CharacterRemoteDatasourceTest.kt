@@ -76,7 +76,7 @@ class CharacterRemoteDatasourceTest {
             io = Dispatchers.Main
         )
 
-        val characterDetail = dataSource.character(1016823)
+        val characterDetail = dataSource.character(id = 1016823, comicsLimit = 4)
 
         assertThat(characterDetail?.comics?.size).isEqualTo(2)
     }
@@ -90,7 +90,7 @@ class CharacterRemoteDatasourceTest {
             io = Dispatchers.Main
         )
 
-        val characterDetail = dataSource.character(1016823)
+        val characterDetail = dataSource.character(id = 1016823, comicsLimit = 4)
 
         assertThat(characterDetail?.name).isEqualTo("Abomination (Ultimate)")
     }

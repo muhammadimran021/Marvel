@@ -20,11 +20,11 @@
             android:id="@+id/container_collapsing"
             android:layout_width="match_parent"
             android:layout_height="224dp"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Collapsed"
+            app:collapsedTitleTextColor="?colorOnSecondaryContainer"
             app:contentScrim="?colorSecondaryContainer"
             app:expandedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Expanded"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Marvel.CollapsingToolbar.Collapsed"
             app:expandedTitleTextColor="@android:color/transparent"
-            app:collapsedTitleTextColor="?colorOnSecondaryContainer"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleCollapseMode="fade"
             >
@@ -33,9 +33,9 @@
                 android:id="@+id/img_character"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:fitsSystemWindows="true"
                 android:contentDescription="@null"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
                 tools:src="@tools:sample/backgrounds/scenic"
                 />
 
@@ -43,8 +43,8 @@
                 android:id="@+id/toolbar"
                 style="@style/Widget.Marvel.Toolbar.WithCloseButton"
                 android:layout_width="match_parent"
-                android:background="@android:color/transparent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
                 />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -76,18 +76,18 @@
                 android:id="@+id/txt_headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/label_marvel_character"
                 android:textAppearance="?textAppearanceSubtitle1"
                 android:textColor="?colorOnSecondaryContainer"
-                android:text="@string/label_marvel_character"
                 />
 
             <TextView
                 android:id="@+id/txt_comics_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?textAppearanceHeadline5"
                 android:layout_marginTop="24dp"
                 android:text="@string/label_comics"
+                android:textAppearance="?textAppearanceHeadline5"
                 />
 
             <FrameLayout
@@ -96,6 +96,11 @@
                 android:animateLayoutChanges="true"
                 >
 
+                <!--
+                Be aware this recycler view won't recycle any item,
+                as it's living inside a nested scroll view.
+                That way the number items bound to it should be small.
+                 -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_comics"
                     android:layout_width="match_parent"
@@ -105,7 +110,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     tools:listitem="@layout/item_comic"
-                    tools:visibility="gone"
+                    tools:visibility="visible"
                     />
 
                 <include
