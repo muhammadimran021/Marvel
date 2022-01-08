@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
     <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="24dp"
         >
 
         <FrameLayout
@@ -52,11 +52,9 @@
             android:ellipsize="end"
             android:lineSpacingExtra="4dp"
             android:maxLines="10"
-            android:paddingBottom="16dp"
-            android:text="@string/label_marvel_character"
+            android:text="@string/placeholder_no_preview"
             android:textAppearance="?textAppearanceSubtitle1"
             android:textColor="?colorOnSecondaryContainer"
-            tools:text="In 1956 rival company DC Comics ushered in the so-called Silver Age of comics by reintroducing superhero titles with significant commercial success. In the early 1960s Atlas changed its name to Marvel Comics. For several decades Marvel and DC were the top companies in the industry."
             />
     </LinearLayout>
 </ScrollView>
