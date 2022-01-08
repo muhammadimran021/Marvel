@@ -2,6 +2,8 @@ package org.saulmm.marvel.characters.list.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,12 +12,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.saulmm.marvel.R
-import org.saulmm.marvel.app.utils.ext.isScrollable
+import org.saulmm.marvel.app.utils.ext.*
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.databinding.FragmentCharacterListBinding
 import org.saulmm.marvel.home.view.HomeNavigator
-import org.saulmm.marvel.app.utils.ext.launchAndRepeatWithViewLifecycle
-import org.saulmm.marvel.app.utils.ext.viewBinding
 
 @AndroidEntryPoint
 class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
@@ -56,6 +56,12 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun setupView() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.fabGoUp.updateMargins(bottom = 16.dp.toInt() + systemBars.bottom)
+            insets
+        }
+
         binding.fabGoUp.setOnClickListener {
             binding.recyclerCharacters.scrollToPosition(0)
             binding.containerAppbar.setExpanded(true)
