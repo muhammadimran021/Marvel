@@ -10,16 +10,7 @@ import org.saulmm.marvel.databinding.ItemCharacterBinding
 class CharactersAdapter(
     private val inflater: LayoutInflater,
     private val onCharacterClick: (CharacterPreview) -> Unit
-): ListAdapter<CharacterPreview, CharacterViewHolder>(object : DiffUtil.ItemCallback<CharacterPreview?>() {
-    override fun areItemsTheSame(oldItem: CharacterPreview, newItem: CharacterPreview): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: CharacterPreview, newItem: CharacterPreview): Boolean {
-        return oldItem == newItem
-    }
-}) {
-
+) : ListAdapter<CharacterPreview, CharacterViewHolder>(CharacterDiffItemCallback()) {
     var onEndOfListReached: ((lastPosition: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
