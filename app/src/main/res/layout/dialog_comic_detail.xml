@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorSecondaryContainer"
+            android:padding="24dp"
+            >
+
+            <ImageView
+                android:id="@+id/img_comic"
+                android:layout_width="210dp"
+                android:layout_height="260dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY"
+                tools:ignore="ContentDescription"
+                tools:src="@tools:sample/backgrounds/scenic"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:textAppearance="?textAppearanceHeadline5"
+            android:textColor="?colorPrimary"
+            tools:text="Captain America"
+            />
+
+        <TextView
+            android:id="@+id/txt_paragraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="10"
+            android:paddingBottom="16dp"
+            android:text="@string/label_marvel_character"
+            android:textAppearance="?textAppearanceSubtitle1"
+            android:textColor="?colorOnSecondaryContainer"
+            tools:text="In 1956 rival company DC Comics ushered in the so-called Silver Age of comics by reintroducing superhero titles with significant commercial success. In the early 1960s Atlas changed its name to Marvel Comics. For several decades Marvel and DC were the top companies in the industry."
+            />
+    </LinearLayout>
+</ScrollView>
