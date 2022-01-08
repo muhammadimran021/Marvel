@@ -75,11 +75,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="22dp"
         android:text="@string/action_go_up"
         android:visibility="gone"
         app:backgroundTint="?colorTertiaryContainer"
         app:icon="@drawable/ic_arrow_up_16"
         app:tint="?colorOnTertiaryContainer"
+        tools:visibility="visible"
         />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
