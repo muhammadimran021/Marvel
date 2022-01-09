@@ -51,7 +51,7 @@ Given the simplicity of the project, access to the data source is implemented wi
 
 The data source communicates with the Marvel API and returns the data to the repository, using a domain entity: [`CharacterPreview`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/domain/models/Character.kt), or [`Character`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/domain/models/Character.kt).
 
-The detail screen shows the details of a character and all the comics where it appears. A comic, in our domain, contains an image and a portion of text.
+The detail screen shows the details of a character and a few comics where it appears. A comic, in our domain, contains an image and a portion of text.
 
 Using the Marvel API, this is a somewhat complex task as it requires using multiple endpoints:
 
