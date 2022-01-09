@@ -2,7 +2,7 @@
 
 'Marvel characters' is a simple application to display information about the characters of the Marvel universe. 
 
-You can test the application by installing the [following apk](https://github.com/saulmm/marvel/blob/main/app/marvel.apk)
+You can test the application by installing the [following apk](https://github.com/saulmm/marvel/blob/main/app/marvel.apk).
 
 It uses different patterns and libraries from modern android development, such as Material 3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
 
@@ -40,7 +40,7 @@ These entities are used as a 'source of truth' at the boundaries of the other la
 
 The responsibility of the data layer is to expose character's data to other parts of the app, and to abstract the source of the data.
 
-For simplicity, the character repository only uses one data source, which implements data extraction from the remote Marvel API. 
+For simplicity, the character repository only uses [one data source](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/data/remote/CharacterRemoteDatasource.kt), which implements data extraction from the remote Marvel API. 
 
 It would be easy to implement another data source with a database or any other persistence method to enrich this layer. This is the reason why there is an interface to represent a data source.
 
