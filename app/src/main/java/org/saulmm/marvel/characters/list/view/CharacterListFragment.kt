@@ -30,14 +30,8 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     private val viewModel: CharacterListViewModel by viewModels()
     private val charactersAdapter by lazy { CharactersAdapter(layoutInflater, ::onCharacterClick) }
 
-    private val loadingMoreSnackBar by lazy {
-        Snackbar.make(binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE)
-    }
-
-    private val errorSnackBar by lazy {
-        Snackbar.make(binding.root, getString(R.string.label_something_bad_happened), Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.action_try_again) { onTryAgain() }
-    }
+    private lateinit var loadingMoreSnackBar: Snackbar
+    private lateinit var errorSnackBar: Snackbar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,9 +50,18 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
     }
 
     private fun setupView() {
+        loadingMoreSnackBar = Snackbar.make(
+            binding.root, getString(R.string.msg_loading_more), Snackbar.LENGTH_INDEFINITE
+        )
+        errorSnackBar = Snackbar.make(
+            binding.root, getString(R.string.label_something_bad_happened), Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.action_try_again) { onTryAgain() }
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.fabGoUp.updateMargins(bottom = 16.dp.toInt() + systemBars.bottom)
+            binding.fabGoUp.updateMargins(bottom = 8.dp.toInt() + systemBars.bottom)
+            errorSnackBar.setMarginBottom(8.dp.toInt() + systemBars.bottom)
+            loadingMoreSnackBar.setMarginBottom(8.dp.toInt() + systemBars.bottom)
             insets
         }
 
