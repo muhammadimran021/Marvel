@@ -2,7 +2,13 @@
 
 'Marvel characters' is a simple application to display information about the characters of the Marvel universe. 
 
+You can test the application by installing the [following apk](https://github.com/saulmm/marvel/blob/main/app/marvel.apk).
+
 It uses different patterns and libraries from modern android development, such as Material 3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
+
+| <img src="https://user-images.githubusercontent.com/3531999/148698949-b8531ae2-6230-4419-960b-c5253777116c.jpg" height="700"/> | <img height="700" src="https://user-images.githubusercontent.com/3531999/148698950-ae8f1324-e710-41e7-8bd0-e784eb09b4c0.jpg"/>
+|---|---|
+
 
 It contains two screens. One shows a list of characters and another with detailed information about a specific character. Both screens are implemented using fragments:
 
@@ -34,7 +40,7 @@ These entities are used as a 'source of truth' at the boundaries of the other la
 
 The responsibility of the data layer is to expose character's data to other parts of the app, and to abstract the source of the data.
 
-For simplicity, the character repository only uses one data source, which implements data extraction from the remote Marvel API. 
+For simplicity, the character repository only uses [one data source](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/data/remote/CharacterRemoteDatasource.kt), which implements data extraction from the remote Marvel API. 
 
 It would be easy to implement another data source with a database or any other persistence method to enrich this layer. This is the reason why there is an interface to represent a data source.
 
@@ -45,7 +51,7 @@ Given the simplicity of the project, access to the data source is implemented wi
 
 The data source communicates with the Marvel API and returns the data to the repository, using a domain entity: [`CharacterPreview`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/domain/models/Character.kt), or [`Character`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/domain/models/Character.kt).
 
-The detail screen shows the details of a character and all the comics where it appears. A comic, in our domain, contains an image and a portion of text.
+The detail screen shows the details of a character and a few comics where it appears. A comic, in our domain, contains an image and a portion of text.
 
 Using the Marvel API, this is a somewhat complex task as it requires using multiple endpoints:
 
