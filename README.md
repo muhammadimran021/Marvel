@@ -2,6 +2,8 @@
 
 'Marvel characters' is a simple application to display information about the characters of the Marvel universe. 
 
+You can test the application by installing the [following apk](https://github.com/saulmm/marvel/blob/main/app/marvel.apk)
+
 It uses different patterns and libraries from modern android development, such as Material 3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
 
 | <img src="https://user-images.githubusercontent.com/3531999/148698949-b8531ae2-6230-4419-960b-c5253777116c.jpg" height="700"/> | <img height="700" src="https://user-images.githubusercontent.com/3531999/148698950-ae8f1324-e710-41e7-8bd0-e784eb09b4c0.jpg"/>
