@@ -4,6 +4,10 @@
 
 It uses different patterns and libraries from modern android development, such as Material 3, MVVM, unidirectional data flow, coroutines, Dagger Hilt, view binding, and others.
 
+| <img src="https://user-images.githubusercontent.com/3531999/148698949-b8531ae2-6230-4419-960b-c5253777116c.jpg" height="700"/> | <img height="700" src="https://user-images.githubusercontent.com/3531999/148698950-ae8f1324-e710-41e7-8bd0-e784eb09b4c0.jpg"/>
+|---|---|
+
+
 It contains two screens. One shows a list of characters and another with detailed information about a specific character. Both screens are implemented using fragments:
 
 - [`CharacterListFragment`](https://github.com/saulmm/marvel/blob/main/app/src/main/java/org/saulmm/marvel/characters/list/view/CharacterListFragment.kt)
