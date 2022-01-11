@@ -55,6 +55,12 @@ android {
                 '-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
         ]
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion plugin_versions.compose
+    }
 }
 
 dependencies {
@@ -89,6 +95,17 @@ dependencies {
     implementation deps.shrimmer
     implementation deps.lottie
     implementation deps.logcat
+
+    implementation deps.compose.runtime
+    implementation deps.compose.activity
+    implementation deps.compose.lifecycle
+    implementation deps.compose.ui
+    implementation deps.compose.foundation
+    implementation deps.compose.layout
+    implementation deps.compose.material
+    implementation deps.compose.runtime
+    implementation deps.compose.tooling
+    implementation deps.compose.theme
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth
