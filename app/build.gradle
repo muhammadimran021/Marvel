@@ -104,6 +104,7 @@ dependencies {
     implementation deps.compose.runtime
     implementation deps.compose.tooling
     implementation deps.compose.theme
+    implementation deps.compose.landscapist
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth
