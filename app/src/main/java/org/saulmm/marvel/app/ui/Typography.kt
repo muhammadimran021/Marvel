@@ -18,7 +18,7 @@ val Nunito = FontFamily(
 
 val MarvelTypography = Typography(
     headlineLarge = TextStyle(
-        fontSize = 24.sp,
+        fontSize = 34.sp,
         fontFamily = SecularOne
     ),
     headlineMedium = TextStyle(

@@ -20,7 +20,8 @@ def versions = [
     glide: "4.12.0",
     shrimmer: "0.5.0",
     lottie: "4.2.2",
-    logcat : "0.1"
+    logcat : "0.1",
+    accompanist : "0.22.0-rc"
 ]
 
 def versions_testing = [
@@ -52,6 +53,7 @@ deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
 deps.shrimmer = "com.facebook.shimmer:shimmer:$versions.shrimmer"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
 deps.logcat = "com.squareup.logcat:logcat:$versions.logcat"
+deps.insets = "com.google.accompanist:accompanist-insets:$versions.accompanist"
 
 def testing = [:]
 testing.junit = "junit:junit:${versions_testing.junit}"
