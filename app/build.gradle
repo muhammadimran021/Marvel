@@ -111,6 +111,7 @@ dependencies {
         exclude group: 'com.github.bumptech.glide', module: 'glide'
     }
     implementation deps.compose.livedata
+    implementation deps.compose.accompanist.placeholder
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth

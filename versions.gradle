@@ -85,6 +85,10 @@ compose.theme = "com.google.android.material:compose-theme-adapter:1.0.5"
 compose.landscapist = "com.github.skydoves:landscapist-glide:1.4.5"
 deps.compose = compose
 
+def accompanist = [:]
+accompanist.placeholder = "com.google.accompanist:accompanist-placeholder:0.22.0-rc"
+deps.compose.accompanist = accompanist
+
 def glide = [:]
 glide.core = "com.github.bumptech.glide:glide:$versions.glide"
 glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
