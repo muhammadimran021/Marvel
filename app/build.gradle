@@ -73,6 +73,7 @@ dependencies {
 
     implementation deps.androidx.activity_ktx
     implementation deps.androidx.fragment_ktx
+    implementation deps.androidx.splash
 
     implementation deps.coroutines.core
     implementation deps.coroutines.android

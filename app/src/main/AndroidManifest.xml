@@ -15,6 +15,7 @@
         android:theme="@style/Theme.Marvel">
         <activity
             android:name=".home.view.HomeActivity"
+            android:theme="@style/Theme.App.Starting"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
