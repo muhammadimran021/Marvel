@@ -63,13 +63,16 @@ class CharacterDetailViewModel @AssistedInject constructor(
         viewState.value = if (character != null) {
             CharacterDetailViewState.Success(character)
         } else {
-            CharacterDetailViewState.Failure(NullPointerException("Character is null"))
+            CharacterDetailViewState.Failure(
+                characterPreview,
+                NullPointerException("Character is null")
+            )
         }
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
         logcat(LogPriority.ERROR) { e.toString() }
         tryAgainAction = { loadCharacterDetail() }
-        viewState.value = CharacterDetailViewState.Failure(e)
+        viewState.value = CharacterDetailViewState.Failure(characterPreview, e)
     }
 }

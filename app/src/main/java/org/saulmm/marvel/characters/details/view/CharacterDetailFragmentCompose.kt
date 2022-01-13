@@ -42,6 +42,7 @@ import org.saulmm.marvel.R
 import org.saulmm.marvel.app.ui.MarvelTheme
 import org.saulmm.marvel.app.utils.ext.argument
 import org.saulmm.marvel.characters.data.utils.toCharacterPreview
+import org.saulmm.marvel.characters.details.view.CharacterDetailViewState.Failure
 import org.saulmm.marvel.characters.domain.models.Character
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.domain.models.Comic
@@ -87,7 +88,12 @@ class CharacterDetailFragmentCompose : Fragment() {
             setContent {
                 MaterialTheme {
                     val viewState by viewModel.onViewState.collectAsState()
-                    viewState?.let { CharacterScreen(it) }
+                    viewState?.let {
+                        CharacterScreen(
+                            viewState = it,
+                            onCloseClick = { activity?.onBackPressed() }
+                        )
+                    }
                 }
             }
         }
@@ -95,7 +101,10 @@ class CharacterDetailFragmentCompose : Fragment() {
 
     @ExperimentalFoundationApi
     @Composable
-    fun CharacterScreen(viewState: CharacterDetailViewState) {
+    fun CharacterScreen(
+        viewState: CharacterDetailViewState,
+        onCloseClick: () -> Unit
+    ) {
         MarvelTheme {
             ProvideWindowInsets {
                 Box(modifier = Modifier.statusBarsPadding()) {
@@ -104,46 +113,31 @@ class CharacterDetailFragmentCompose : Fragment() {
                         TopAppBarDefaults.pinnedScrollBehavior()
                     }
 
-                    when (viewState) {
-                        is CharacterDetailViewState.Failure -> {
-                            Scaffold(
-                                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                                topBar = { CharacterDetailAppBar("", scrollBehavior) },
-                                content = { }
+                    Scaffold(
+                        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                        topBar = {
+                            CharacterDetailAppBar(
+                                viewState.preview.name,
+                                scrollBehavior,
+                                onCloseClick
                             )
+                        },
+                        content = {
+                            when (viewState) {
+                                is Failure -> {}
+                                is CharacterDetailViewState.LoadingWithPreview -> {
+                                    CharacterPreviewLoadingComics(character = viewState.preview)
+                                }
+                                is CharacterDetailViewState.Success -> {
+                                    CharacterWithComics(character = viewState.character)
+                                }
+                            }
                         }
-                        is CharacterDetailViewState.LoadingWithPreview -> {
-                            Scaffold(
-                                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                                topBar = {
-                                    CharacterDetailAppBar(
-                                        viewState.preview.name,
-                                        scrollBehavior
-                                    )
-                                },
-                                content = { CharacterPreviewLoadingComics(viewState.preview) }
-                            )
-                        }
-                        is CharacterDetailViewState.Success -> {
-                            Scaffold(
-                                modifier = Modifier
-                                    .nestedScroll(scrollBehavior.nestedScrollConnection)
-                                ,
-                                topBar = {
-                                    CharacterDetailAppBar(
-                                        viewState.character.name,
-                                        scrollBehavior
-                                    )
-                                },
-                                content = { CharacterWithComics(viewState.character) }
-                            )
-                        }
-                    }
+                    )
                 }
             }
         }
     }
-
 
     @Composable
     private fun CharacterHeader(character: CharacterPreview) {
@@ -171,7 +165,6 @@ class CharacterDetailFragmentCompose : Fragment() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
-
     }
 
     @Composable
@@ -199,15 +192,12 @@ class CharacterDetailFragmentCompose : Fragment() {
                     highlight = PlaceholderHighlight.shimmer(
                         highlightColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                     )
-                )
-            ,
+                ),
             shadowElevation = 8.dp,
             shape = RoundedCornerShape(8.dp)
         ) {}
-
     }
 
-    @ExperimentalFoundationApi
     @Composable
     private fun CharacterPreviewLoadingComics(character: CharacterPreview) {
         Column {
@@ -268,22 +258,15 @@ class CharacterDetailFragmentCompose : Fragment() {
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .size(width = 168.dp, height = 252.dp)
-                )
-            }
+            )
         }
-
-    @Composable
-    private fun lorem() {
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,"
-        )
     }
 
     @Composable
     private fun CharacterDetailAppBar(
         appBarTitle: String,
-        scrollBehavior: TopAppBarScrollBehavior
+        scrollBehavior: TopAppBarScrollBehavior,
+        onRemoveClick: () -> Unit
     ) {
         SmallTopAppBar(
             title = {
@@ -293,7 +276,7 @@ class CharacterDetailFragmentCompose : Fragment() {
                 )
             },
             navigationIcon = {
-                IconButton(onClick = { /* doSomething() */ }) {
+                IconButton(onClick = { onRemoveClick() }) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = "Localized description"
@@ -316,7 +299,8 @@ class CharacterDetailFragmentCompose : Fragment() {
                         name = "Captain America",
                         image = Image("http://google.es", ".jpg")
                     )
-                )
+                ),
+                onCloseClick = {}
             )
         }
     }
@@ -327,6 +311,7 @@ class CharacterDetailFragmentCompose : Fragment() {
     fun CharacterDetailUiPreviewSuccess() {
         MarvelTheme(darkTheme = true) {
             CharacterScreen(
+                onCloseClick = {},
                 viewState = CharacterDetailViewState.Success(
                     character = Character(
                         id = 1,
