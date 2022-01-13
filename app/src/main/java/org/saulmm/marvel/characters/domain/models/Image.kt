@@ -21,4 +21,10 @@ data class Image(
 
     val portraitIncredible: String
         get() = "$path/${MarvelImageVariant.PORTRAIT_INCREDIBLE.value}.$extension"
+
+    val portraitFantastic: String
+        get() = "$path/${MarvelImageVariant.PORTRAIT_FANTASTIC.value}.$extension"
+
+    val detail: String
+        get() = "$path/${MarvelImageVariant.DETAIL.value}.$extension"
 }

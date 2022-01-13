@@ -49,7 +49,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
 
     private fun loadCharacterDetail() {
         viewModelScope.launch {
-            viewState.value = CharacterDetailViewState.Loading
+            viewState.value = CharacterDetailViewState.LoadingWithPreview(characterPreview)
 
             runCatching { characterRepository.character(characterPreview.id) }
                 .onSuccess { onCharacterDetailSuccess(it) }

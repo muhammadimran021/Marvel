@@ -86,7 +86,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
     private fun bindViewState(viewState: CharacterDetailViewState) {
         when (viewState) {
-            Loading -> {
+            is LoadingWithPreview -> {
                 showFailure(false)
                 showLoading(true)
             }
