@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,7 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -35,6 +32,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
+import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
@@ -56,8 +57,7 @@ class CharacterDetailFragmentCompose : Fragment() {
 
         fun newInstance(characterPreview: CharacterPreview): CharacterDetailFragmentCompose {
             return CharacterDetailFragmentCompose().apply {
-                arguments =
-                    bundleOf(CharacterDetailFragment.EXTRA_CHARACTER_PREVIEW to characterPreview)
+                arguments = bundleOf(EXTRA_CHARACTER_PREVIEW to characterPreview)
             }
         }
     }
@@ -126,7 +126,9 @@ class CharacterDetailFragmentCompose : Fragment() {
                         }
                         is CharacterDetailViewState.Success -> {
                             Scaffold(
-                                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                                modifier = Modifier
+                                    .nestedScroll(scrollBehavior.nestedScrollConnection)
+                                ,
                                 topBar = {
                                     CharacterDetailAppBar(
                                         viewState.character.name,
@@ -184,53 +186,91 @@ class CharacterDetailFragmentCompose : Fragment() {
         )
     }
 
+    @Composable
+    private fun ComicLoadingPlaceHolder() {
+        Surface(
+            modifier = Modifier
+                .padding(4.dp)
+                .size(width = 168.dp, height = 252.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .placeholder(
+                    visible = true,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    highlight = PlaceholderHighlight.shimmer(
+                        highlightColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    )
+                )
+            ,
+            shadowElevation = 8.dp,
+            shape = RoundedCornerShape(8.dp)
+        ) {}
+
+    }
+
     @ExperimentalFoundationApi
     @Composable
     private fun CharacterPreviewLoadingComics(character: CharacterPreview) {
-
+        Column {
+            CharacterHeader(character = character)
+            Spacer(modifier = Modifier.height(16.dp))
+            repeat(times = 2) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    ComicLoadingPlaceHolder()
+                    ComicLoadingPlaceHolder()
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+        }
     }
 
     @ExperimentalFoundationApi
     @Composable
     private fun CharacterWithComics(character: Character) {
         val comicsPairs = character.comics.chunked(2)
-        LazyColumn(content = {
-            item { CharacterHeader(character = character.toCharacterPreview()) }
-            items(comicsPairs) { comicPair ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    comicPair.forEach { comic ->
-                        ComicImage(comic)
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+            content = {
+                item { CharacterHeader(character = character.toCharacterPreview()) }
+                items(comicsPairs) { comicPair ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        comicPair.forEach { ComicImage(it) }
                     }
                 }
             }
-        }
         )
     }
 
     @Composable
     private fun ComicImage(comic: Comic) {
-        Box(Modifier.padding(8.dp)) {
-            Surface(
+        Surface(
+            modifier = Modifier.padding(4.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            shadowElevation = 8.dp,
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            GlideImage(
+                contentScale = ContentScale.Fit,
+                imageModel = comic.images.first().portraitIncredible,
+                previewPlaceholder = R.drawable.ic_launcher_background,
+                shimmerParams = ShimmerParams(
+                    baseColor = MaterialTheme.colorScheme.surfaceVariant,
+                    highlightColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    durationMillis = 1_000,
+                    dropOff = 0.65f,
+                    tilt = 20f
+                ),
                 modifier = Modifier
-                    .padding(4.dp),
-                color = MaterialTheme.colorScheme.onBackground,
-                shadowElevation = 8.dp,
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                GlideImage(
-                    contentScale = ContentScale.Fit,
-                    imageModel = comic.images.first().portraitIncredible,
-                    previewPlaceholder = R.drawable.ic_launcher_background,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .size(width = 168.dp, height = 252.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .size(width = 168.dp, height = 252.dp)
                 )
             }
         }
-    }
 
     @Composable
     private fun lorem() {
@@ -267,7 +307,24 @@ class CharacterDetailFragmentCompose : Fragment() {
     @ExperimentalMaterial3Api
     @Composable
     @Preview(widthDp = 500, heightDp = 800)
-    fun CharacterDetailUiPreview() {
+    fun CharacterDetailUiPreviewLoading() {
+        MarvelTheme() {
+            CharacterScreen(
+                viewState = CharacterDetailViewState.LoadingWithPreview(
+                    preview = CharacterPreview(
+                        id = 1,
+                        name = "Captain America",
+                        image = Image("http://google.es", ".jpg")
+                    )
+                )
+            )
+        }
+    }
+
+    @ExperimentalMaterial3Api
+    @Composable
+    @Preview(widthDp = 500, heightDp = 800)
+    fun CharacterDetailUiPreviewSuccess() {
         MarvelTheme(darkTheme = true) {
             CharacterScreen(
                 viewState = CharacterDetailViewState.Success(
