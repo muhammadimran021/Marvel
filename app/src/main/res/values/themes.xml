@@ -1,4 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- SplashScreen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/cyan_cornflower</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_shield</item>
+        <item name="postSplashScreenTheme">@style/Theme.Marvel</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Theme.Marvel" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorLoading">?colorPrimary</item>
