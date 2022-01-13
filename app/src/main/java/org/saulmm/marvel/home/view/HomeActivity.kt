@@ -3,6 +3,7 @@ package org.saulmm.marvel.home.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.commit
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,7 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
     private val binding by viewBinding(ActivityHomeBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         window.applyEdgeToEdge()
 
