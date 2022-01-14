@@ -337,15 +337,4 @@ class CharacterDetailFragmentCompose : Fragment() {
             )
         }
     }
-
-    @Composable
-    fun ComicDialog(comic: Comic, showDialog: Boolean, setShowDialog: (Boolean) -> Unit) {
-        if (showDialog) {
-            Dialog(
-                onDismissRequest = { setShowDialog(false) },
-            ) {
-                ComicUi(comic)
-            }
-        }
-    }
 }
