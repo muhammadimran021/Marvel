@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -49,7 +50,7 @@ class CharacterDetailViewModel @AssistedInject constructor(
 
     private fun loadCharacterDetail() {
         viewModelScope.launch {
-            viewState.value = CharacterDetailViewState.Loading
+            viewState.value = CharacterDetailViewState.LoadingWithPreview(characterPreview)
 
             runCatching { characterRepository.character(characterPreview.id) }
                 .onSuccess { onCharacterDetailSuccess(it) }
@@ -62,13 +63,16 @@ class CharacterDetailViewModel @AssistedInject constructor(
         viewState.value = if (character != null) {
             CharacterDetailViewState.Success(character)
         } else {
-            CharacterDetailViewState.Failure(NullPointerException("Character is null"))
+            CharacterDetailViewState.Failure(
+                characterPreview,
+                NullPointerException("Character is null")
+            )
         }
     }
 
     private fun onCharacterDetailFailure(e: Throwable) {
         logcat(LogPriority.ERROR) { e.toString() }
         tryAgainAction = { loadCharacterDetail() }
-        viewState.value = CharacterDetailViewState.Failure(e)
+        viewState.value = CharacterDetailViewState.Failure(characterPreview, e)
     }
 }

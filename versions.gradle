@@ -2,7 +2,7 @@ def plugin_versions = [
     kotlin : "1.6.10",
     gradle : "7.0.4",
     hilt : "2.39.1",
-    compose : "1.0.5"
+    compose : "1.1.0-rc02"
 ]
 def versions = [
     androidx_core: "1.7.0",
@@ -21,7 +21,8 @@ def versions = [
     shrimmer: "0.5.0",
     lottie: "4.2.2",
     logcat : "0.1",
-    splash : "1.0.0-alpha02"
+    splash : "1.0.0-alpha02",
+    accompanist : "0.22.0-rc"
 ]
 
 def versions_testing = [
@@ -53,6 +54,7 @@ deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
 deps.shrimmer = "com.facebook.shimmer:shimmer:$versions.shrimmer"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
 deps.logcat = "com.squareup.logcat:logcat:$versions.logcat"
+deps.insets = "com.google.accompanist:accompanist-insets:$versions.accompanist"
 
 def testing = [:]
 testing.junit = "junit:junit:${versions_testing.junit}"
@@ -71,17 +73,23 @@ androidx.splash = "androidx.core:core-splashscreen:$versions.splash"
 deps.androidx = androidx
 
 def compose = [:]
-compose.runtime = "androidx.compose.runtime:runtime:$plugin_versions.compose"
+compose.runtime = "androidx.compose.runtime:runtime:1.0.5"
 compose.activity = "androidx.activity:activity-compose:1.4.0"
 compose.lifecycle = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha06"
-compose.ui = "androidx.compose.ui:ui:$plugin_versions.compose"
-compose.foundation = "androidx.compose.foundation:foundation:$plugin_versions.compose"
-compose.layout = "androidx.compose.foundation:foundation-layout:$plugin_versions.compose"
+compose.ui = "androidx.compose.ui:ui:1.0.5"
+compose.foundation = "androidx.compose.foundation:foundation:1.0.5"
+compose.livedata     = "androidx.compose.runtime:runtime-livedata:1.0.5"
+compose.layout = "androidx.compose.foundation:foundation-layout:1.0.5"
 compose.material3 = "androidx.compose.material3:material3:1.0.0-alpha02"
-compose.runtime = "androidx.compose.runtime:runtime-livedata:$plugin_versions.compose"
-compose.tooling = "androidx.compose.ui:ui-tooling:$plugin_versions.compose"
-compose.theme = "com.google.android.material:compose-theme-adapter:$plugin_versions.compose"
+compose.runtime = "androidx.compose.runtime:runtime-livedata:1.0.5"
+compose.tooling = "androidx.compose.ui:ui-tooling:1.0.5"
+compose.theme = "com.google.android.material:compose-theme-adapter:1.0.5"
+compose.landscapist = "com.github.skydoves:landscapist-glide:1.4.5"
 deps.compose = compose
+
+def accompanist = [:]
+accompanist.placeholder = "com.google.accompanist:accompanist-placeholder:0.22.0-rc"
+deps.compose.accompanist = accompanist
 
 def glide = [:]
 glide.core = "com.github.bumptech.glide:glide:$versions.glide"

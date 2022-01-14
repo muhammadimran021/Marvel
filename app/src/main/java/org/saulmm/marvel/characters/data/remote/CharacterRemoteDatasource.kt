@@ -8,9 +8,10 @@ import org.saulmm.marvel.characters.data.remote.api.MarvelApiService
 import org.saulmm.marvel.characters.data.remote.models.CharacterItemDto
 import org.saulmm.marvel.characters.data.remote.models.CharacterOrderDto
 import org.saulmm.marvel.characters.data.remote.models.CharacterPreviewDto
-import org.saulmm.marvel.characters.data.utils.toCharacter
+import org.saulmm.marvel.characters.data.utils.toCharacterPreview
 import org.saulmm.marvel.characters.data.utils.toComic
 import org.saulmm.marvel.app.di.IoDispatcher
+import org.saulmm.marvel.characters.data.utils.toImage
 import javax.inject.Inject
 
 class CharacterRemoteDatasource @Inject constructor(
@@ -21,7 +22,7 @@ class CharacterRemoteDatasource @Inject constructor(
         return apiService.characters(
             offset = offset,
             orderBy = CharacterOrderDto.MODIFIED.value
-        ).pagedResults.results.map(CharacterPreviewDto::toCharacter)
+        ).pagedResults.results.map(CharacterPreviewDto::toCharacterPreview)
     }
 
     override suspend fun character(id: Int, comicsLimit: Int): Character? {
@@ -40,7 +41,12 @@ class CharacterRemoteDatasource @Inject constructor(
                 .mapNotNull { it.pagedResults.results.firstOrNull() }
                 .map { it.toComic() }
 
-            Character(id, characterDetail.name, comics)
+            Character(
+                id = id,
+                name = characterDetail.name,
+                image = characterDetail.thumbnail.toImage(),
+                comics = comics
+            )
         }
     }
 }

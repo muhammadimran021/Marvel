@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.commit
-import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
 import org.saulmm.marvel.applyEdgeToEdge
@@ -14,6 +13,7 @@ import org.saulmm.marvel.characters.details.view.CharacterDetailFragment
 import org.saulmm.marvel.characters.list.view.CharacterListFragment
 import org.saulmm.marvel.databinding.ActivityHomeBinding
 import org.saulmm.marvel.app.utils.ext.viewBinding
+import org.saulmm.marvel.characters.details.view.CharacterDetailFragmentCompose
 
 @AndroidEntryPoint
 class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
@@ -38,10 +38,7 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
     }
 
     override fun showCharacterDetail(characterPreview: CharacterPreview) {
-        val detailFragment = CharacterDetailFragment.newInstance(characterPreview).apply {
-            enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
-        }
+        val detailFragment = CharacterDetailFragmentCompose.newInstance(characterPreview)
 
         supportFragmentManager.commit {
             replace(binding.fragmentContainer.id, detailFragment, CharacterDetailFragment.TAG)

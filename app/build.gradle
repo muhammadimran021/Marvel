@@ -54,6 +54,8 @@ android {
         freeCompilerArgs += [
                 '-Xopt-in=kotlin.RequiresOptIn',
                 '-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+                '-Xopt-in=androidx.compose.material3.ExperimentalMaterial3Api',
+                '-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi',
         ]
     }
     composeOptions {
@@ -94,6 +96,7 @@ dependencies {
     implementation deps.shrimmer
     implementation deps.lottie
     implementation deps.logcat
+    implementation deps.insets
 
     implementation deps.compose.runtime
     implementation deps.compose.activity
@@ -105,6 +108,11 @@ dependencies {
     implementation deps.compose.runtime
     implementation deps.compose.tooling
     implementation deps.compose.theme
+    implementation (deps.compose.landscapist) {
+        exclude group: 'com.github.bumptech.glide', module: 'glide'
+    }
+    implementation deps.compose.livedata
+    implementation deps.compose.accompanist.placeholder
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth

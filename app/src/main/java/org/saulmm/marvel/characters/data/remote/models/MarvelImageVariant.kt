@@ -2,6 +2,7 @@ package org.saulmm.marvel.characters.data.remote.models
 
 @Suppress("unused")
 enum class MarvelImageVariant(val value: String) {
+    DETAIL("detail"),
     PORTRAIT_SMALL("portrait_small"),
     PORTRAIT_MEDIUM("portrait_medium"),
     PORTRAIT_XLARGE("portrait_xlarge"),

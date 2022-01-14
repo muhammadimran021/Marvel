@@ -53,7 +53,7 @@
             android:lineSpacingExtra="4dp"
             android:maxLines="10"
             android:text="@string/placeholder_no_preview"
-            android:textAppearance="?textAppearanceSubtitle1"
+            android:textAppearance="?textAppearanceBody2"
             android:textColor="?colorOnSecondaryContainer"
             />
     </LinearLayout>

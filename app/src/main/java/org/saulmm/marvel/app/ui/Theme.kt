@@ -13,7 +13,7 @@ fun MarvelTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colorScheme = if (!darkTheme) lightColorScheme() else darkColorScheme(),
+        colorScheme = if (darkTheme) darkColorScheme() else lightColorScheme(),
         typography = MarvelTypography,
         content = content,
     )
