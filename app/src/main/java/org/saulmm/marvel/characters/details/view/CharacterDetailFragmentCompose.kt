@@ -291,7 +291,7 @@ class CharacterDetailFragmentCompose : Fragment() {
     @Composable
     @Preview(widthDp = 500, heightDp = 800)
     fun CharacterDetailUiPreviewLoading() {
-        MarvelTheme() {
+        MarvelTheme {
             CharacterScreen(
                 viewState = CharacterDetailViewState.LoadingWithPreview(
                     preview = CharacterPreview(
