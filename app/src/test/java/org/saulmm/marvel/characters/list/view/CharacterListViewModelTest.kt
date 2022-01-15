@@ -16,7 +16,7 @@ import org.saulmm.marvel.app.utils.CoroutineDispatcherRule
 import org.saulmm.marvel.characters.data.CharacterRepository
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.domain.models.Image
-import org.saulmm.marvel.characters.list.view.CharacterListViewModel.CharactersViewState.*
+import org.saulmm.marvel.characters.list.view.CharactersListViewState.*
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CharacterListViewModelTest {

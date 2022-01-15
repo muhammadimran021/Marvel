@@ -41,6 +41,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
 import org.saulmm.marvel.app.ui.MarvelTheme
 import org.saulmm.marvel.app.utils.ext.argument
+import org.saulmm.marvel.app.utils.ext.marvelPlaceholder
 import org.saulmm.marvel.characters.data.utils.toCharacterPreview
 import org.saulmm.marvel.characters.details.view.CharacterDetailViewState.Failure
 import org.saulmm.marvel.characters.domain.models.Character
@@ -186,13 +187,7 @@ class CharacterDetailFragmentCompose : Fragment() {
                 .padding(4.dp)
                 .size(width = 168.dp, height = 252.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .placeholder(
-                    visible = true,
-                    color = MaterialTheme.colorScheme.surfaceVariant,
-                    highlight = PlaceholderHighlight.shimmer(
-                        highlightColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                    )
-                ),
+                .marvelPlaceholder(),
             shadowElevation = 8.dp,
             shape = RoundedCornerShape(8.dp)
         ) {}

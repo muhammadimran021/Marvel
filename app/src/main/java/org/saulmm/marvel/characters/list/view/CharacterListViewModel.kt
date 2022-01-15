@@ -18,13 +18,7 @@ class CharacterListViewModel @Inject constructor(
     private val repository: CharacterRepository
 ): ViewModel() {
 
-    sealed class CharactersViewState {
-        object Loading: CharactersViewState()
-        class Failure(e: Throwable): CharactersViewState()
-        class Success(val characters: List<CharacterPreview>): CharactersViewState()
-    }
-
-    private val viewState = MutableStateFlow<CharactersViewState?>(null)
+    private val viewState = MutableStateFlow<CharactersListViewState?>(null)
     private val currentCharacters = mutableListOf<CharacterPreview>()
     val onViewState = viewState.asStateFlow()
 
@@ -38,7 +32,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     fun loadCharacters(offset: Int = 0) {
-        viewState.value = CharactersViewState.Loading
+        viewState.value = CharactersListViewState.Loading
 
         viewModelScope.launch {
             runCatching { repository.characters(offset) }
@@ -50,12 +44,12 @@ class CharacterListViewModel @Inject constructor(
     private fun onRequestCharactersFailure(e: Throwable, offset: Int) {
         logcat(LogPriority.ERROR) { "Failure with offset: $offset, $e"}
         tryAgainAction = { loadCharacters(offset) }
-        viewState.value = CharactersViewState.Failure(e)
+        viewState.value = CharactersListViewState.Failure(e)
     }
 
     private fun onRequestCharactersSuccess(characters: List<CharacterPreview>) {
         currentCharacters.addAll(characters)
         tryAgainAction = null
-        viewState.value = CharactersViewState.Success(currentCharacters.toImmutableList())
+        viewState.value = CharactersListViewState.Success(currentCharacters.toImmutableList())
     }
 }
