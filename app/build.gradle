@@ -95,6 +95,7 @@ dependencies {
 
     implementation deps.shrimmer
     implementation deps.lottie
+    implementation deps.lottie_compose
     implementation deps.logcat
     implementation deps.insets
 

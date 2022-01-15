@@ -53,6 +53,7 @@ deps.constraint_layout = "androidx.constraintlayout:constraintlayout:${versions.
 deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
 deps.shrimmer = "com.facebook.shimmer:shimmer:$versions.shrimmer"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
+deps.lottie_compose = "com.airbnb.android:lottie-compose:$versions.lottie"
 deps.logcat = "com.squareup.logcat:logcat:$versions.logcat"
 deps.insets = "com.google.accompanist:accompanist-insets:$versions.accompanist"
 

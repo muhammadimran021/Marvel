@@ -13,7 +13,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
@@ -29,6 +31,9 @@ import androidx.fragment.app.viewModels
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import com.skydoves.landscapist.ShimmerParams
@@ -80,7 +85,7 @@ class CharacterListFragmentCompose : Fragment() {
     }
 }
 
-@Preview(showBackground = true, heightDp = 150)
+@Preview(showBackground = true)
 @Composable
 private fun CharacterItemPreview() {
     MarvelTheme {
@@ -95,7 +100,7 @@ private fun CharacterItemPreview() {
     }
 }
 
-@Preview(showBackground = true, heightDp = 150)
+@Preview(showBackground = true)
 @Composable
 private fun CharacterItemPreviewDark() {
     MarvelTheme(darkTheme = true) {
@@ -108,6 +113,12 @@ private fun CharacterItemPreviewDark() {
             onCharacterClick = {}
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FullErrorPreview() {
+    GenericError()
 }
 
 @Preview(showBackground = true)
@@ -144,10 +155,10 @@ fun CharactersListScreen(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = { CharactersListAppBar(scrollBehavior) },
                 content = {
-                    if (characters.isFullLoading) {
-                        CharacterListLoading()
-                    } else {
-                        CharactersLazyList(characters, onCharacterClick)
+                    when {
+                        characters.isFullLoading -> CharacterListLoading()
+                        characters.isFullError -> GenericError()
+                        else -> CharactersLazyList(characters, onCharacterClick)
                     }
                 }
             )
@@ -312,6 +323,37 @@ private fun LoadingMoreError() {
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
+private fun GenericError() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.anim_connection_issue))
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        LottieAnimation(
+            composition = composition,
+            modifier = Modifier.size(300.dp, 150.dp),
+            restartOnPlay = true
+        )
+
+        Text(
+            text = stringResource(id = R.string.label_something_bad_happened),
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
+            textAlign = TextAlign.Center,
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = stringResource(id = R.string.msg_generic_error),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            textAlign = TextAlign.Center,
         )
     }
 }
