@@ -13,11 +13,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
@@ -27,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -140,6 +138,7 @@ fun CharactersListScreen(
     }
 
     val characters = viewmodel.pager.flow.collectAsLazyPagingItems()
+    val loadState = characters.loadState
 
     ProvideWindowInsets {
         Box(modifier = Modifier.statusBarsPadding()) {
@@ -147,7 +146,11 @@ fun CharactersListScreen(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = { CharactersListAppBar(scrollBehavior) },
                 content = {
-                    CharactersLazyList(characters, onCharacterClick)
+                    if (loadState.refresh == LoadState.Loading) {
+                        CharacterListLoading()
+                    } else {
+                        CharactersLazyList(characters, onCharacterClick)
+                    }
                 }
             )
         }
