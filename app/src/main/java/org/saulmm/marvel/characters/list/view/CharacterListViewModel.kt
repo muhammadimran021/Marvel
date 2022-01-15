@@ -2,7 +2,11 @@ package org.saulmm.marvel.characters.list.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -17,39 +21,20 @@ import javax.inject.Inject
 class CharacterListViewModel @Inject constructor(
     private val repository: CharacterRepository
 ): ViewModel() {
+    var currentCharactersPagingSource: CharactersPagingSource? = null
 
-    private val viewState = MutableStateFlow<CharactersListViewState?>(null)
-    private val currentCharacters = mutableListOf<CharacterPreview>()
-    val onViewState = viewState.asStateFlow()
-
-    var tryAgainAction: (() -> Unit)? = null
-        private set
-
-    init {
-        viewModelScope.launch {
-            loadCharacters()
+    val pager = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false,
+        ),
+        pagingSourceFactory = {
+            currentCharactersPagingSource = CharactersPagingSource(repository)
+            checkNotNull(currentCharactersPagingSource)
         }
-    }
+    )
 
-    fun loadCharacters(offset: Int = 0) {
-        viewState.value = CharactersListViewState.Loading
-
-        viewModelScope.launch {
-            runCatching { repository.characters(offset) }
-                .onFailure { onRequestCharactersFailure(it, offset) }
-                .onSuccess(::onRequestCharactersSuccess)
-        }
-    }
-
-    private fun onRequestCharactersFailure(e: Throwable, offset: Int) {
-        logcat(LogPriority.ERROR) { "Failure with offset: $offset, $e"}
-        tryAgainAction = { loadCharacters(offset) }
-        viewState.value = CharactersListViewState.Failure(e)
-    }
-
-    private fun onRequestCharactersSuccess(characters: List<CharacterPreview>) {
-        currentCharacters.addAll(characters)
-        tryAgainAction = null
-        viewState.value = CharactersListViewState.Success(currentCharacters.toImmutableList())
+    fun retry() {
+        currentCharactersPagingSource?.invalidate()
     }
 }

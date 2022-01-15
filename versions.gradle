@@ -53,6 +53,7 @@ deps.constraint_layout = "androidx.constraintlayout:constraintlayout:${versions.
 deps.app_compat = "androidx.appcompat:appcompat:${versions.app_compat}"
 deps.shrimmer = "com.facebook.shimmer:shimmer:$versions.shrimmer"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
+deps.lottie_compose = "com.airbnb.android:lottie-compose:$versions.lottie"
 deps.logcat = "com.squareup.logcat:logcat:$versions.logcat"
 deps.insets = "com.google.accompanist:accompanist-insets:$versions.accompanist"
 
@@ -85,6 +86,7 @@ compose.runtime = "androidx.compose.runtime:runtime-livedata:1.0.5"
 compose.tooling = "androidx.compose.ui:ui-tooling:1.0.5"
 compose.theme = "com.google.android.material:compose-theme-adapter:1.0.5"
 compose.landscapist = "com.github.skydoves:landscapist-glide:1.4.5"
+compose.paging = "androidx.paging:paging-compose:1.0.0-alpha14"
 deps.compose = compose
 
 def accompanist = [:]

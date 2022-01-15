@@ -10,11 +10,10 @@ import org.saulmm.marvel.R
 import org.saulmm.marvel.applyEdgeToEdge
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.details.view.CharacterDetailFragment
-import org.saulmm.marvel.characters.list.view.CharacterListFragment
-import org.saulmm.marvel.databinding.ActivityHomeBinding
 import org.saulmm.marvel.app.utils.ext.viewBinding
 import org.saulmm.marvel.characters.details.view.CharacterDetailFragmentCompose
 import org.saulmm.marvel.characters.list.view.CharacterListFragmentCompose
+import org.saulmm.marvel.databinding.ActivityHomeBinding
 
 @AndroidEntryPoint
 class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
@@ -34,7 +33,7 @@ class HomeActivity : HomeNavigator, AppCompatActivity(R.layout.activity_home) {
     override fun showCharactersList() {
         val characterListFragment = CharacterListFragmentCompose.newInstance()
         supportFragmentManager.commit {
-            add(binding.fragmentContainer.id, characterListFragment, CharacterListFragment.TAG)
+            add(binding.fragmentContainer.id, characterListFragment, CharacterListFragmentCompose.TAG)
         }
     }
 

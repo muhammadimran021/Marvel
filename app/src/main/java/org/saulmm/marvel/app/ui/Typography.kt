@@ -31,6 +31,7 @@ val MarvelTypography = Typography(
     ),
     bodyLarge = TextStyle(
         fontSize = 18.sp,
+        lineHeight = 24.sp,
         fontFamily = Nunito
     ),
     bodyMedium = TextStyle(
@@ -40,6 +41,7 @@ val MarvelTypography = Typography(
     ),
     bodySmall = TextStyle(
         fontSize = 14.sp,
+        lineHeight = 20.sp,
         fontFamily = Nunito
     )
 )
