@@ -35,6 +35,8 @@ import com.skydoves.landscapist.glide.GlideImage
 import dagger.hilt.android.AndroidEntryPoint
 import org.saulmm.marvel.R
 import org.saulmm.marvel.app.ui.MarvelTheme
+import org.saulmm.marvel.app.utils.ext.isFullLoading
+import org.saulmm.marvel.app.utils.ext.isLoadingMore
 import org.saulmm.marvel.app.utils.ext.marvelPlaceholder
 import org.saulmm.marvel.characters.domain.models.CharacterPreview
 import org.saulmm.marvel.characters.domain.models.Image
@@ -138,7 +140,6 @@ fun CharactersListScreen(
     }
 
     val characters = viewmodel.pager.flow.collectAsLazyPagingItems()
-    val loadState = characters.loadState
 
     ProvideWindowInsets {
         Box(modifier = Modifier.statusBarsPadding()) {
@@ -146,7 +147,7 @@ fun CharactersListScreen(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = { CharactersListAppBar(scrollBehavior) },
                 content = {
-                    if (loadState.refresh == LoadState.Loading) {
+                    if (characters.isFullLoading) {
                         CharacterListLoading()
                     } else {
                         CharactersLazyList(characters, onCharacterClick)
@@ -172,6 +173,13 @@ private fun CharactersLazyList(
                     characterPreview = item,
                     onCharacterClick = onCharacterClick
                 )
+            }
+        }
+
+        // When loading more, show one loading placeholder
+        if (characters.isLoadingMore) {
+            item {
+                CharacterItemLoading()
             }
         }
     }
