@@ -51,6 +51,7 @@ class CharacterListFragmentCompose : Fragment() {
 
     companion object {
         const val LOADING_ITEMS = 5
+        const val TAG = "CharacterListFragmentCompose"
 
         fun newInstance(): CharacterListFragmentCompose {
             return CharacterListFragmentCompose()
@@ -117,12 +118,6 @@ private fun CharacterItemPreviewDark() {
 
 @Preview(showBackground = true)
 @Composable
-private fun FullErrorPreview() {
-    GenericError()
-}
-
-@Preview(showBackground = true)
-@Composable
 private fun CharacterItemLoadingPreview() {
     MarvelTheme {
         CharacterItemLoading()
@@ -157,7 +152,7 @@ fun CharactersListScreen(
                 content = {
                     when {
                         characters.isFullLoading -> CharacterListLoading()
-                        characters.isFullError -> GenericError()
+                        characters.isFullError -> GenericError(onRetryClicked = { characters.retry() } )
                         else -> CharactersLazyList(characters, onCharacterClick)
                     }
                 }
@@ -198,8 +193,12 @@ private fun CharactersLazyList(
         }
 
         when {
-            characters.isLoadingMore -> item { LoadingMoreItems() }
-            characters.isLoadingMoreError -> item { LoadingMoreError() }
+            characters.isLoadingMore -> item {
+                LoadingMoreItems()
+            }
+            characters.isLoadingMoreError -> item {
+                LoadingMoreError(onRetryClicked = { characters.retry() } )
+            }
             else -> { /* Don't show nothing else */
             }
         }
@@ -309,26 +308,33 @@ private fun CharacterItemLoading() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun LoadingMoreError() {
+private fun LoadingMoreError(onRetryClicked: () -> Unit) {
     Surface(
         modifier = Modifier
             .padding(24.dp)
             .height(72.dp),
     ) {
-        Text(
-            text = stringResource(id = R.string.msg_generic_error),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxSize()
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = stringResource(id = R.string.msg_generic_error),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxSize()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedButton(onClick = onRetryClicked) {
+                Text(text = stringResource(id = R.string.action_try_again))
+            }
+        }
     }
 }
 
 @Composable
-private fun GenericError() {
+private fun GenericError(onRetryClicked: () -> Unit) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.anim_connection_issue))
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -355,6 +361,12 @@ private fun GenericError() {
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             textAlign = TextAlign.Center,
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedButton(onClick = onRetryClicked) {
+            Text(text = stringResource(id = R.string.action_try_again))
+        }
     }
 }
 

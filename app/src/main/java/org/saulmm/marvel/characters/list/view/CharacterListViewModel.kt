@@ -21,13 +21,7 @@ import javax.inject.Inject
 class CharacterListViewModel @Inject constructor(
     private val repository: CharacterRepository
 ): ViewModel() {
-
-    private val viewState = MutableStateFlow<CharactersListViewState?>(null)
-    val currentCharacters = mutableListOf<CharacterPreview>()
-    val onViewState = viewState.asStateFlow()
-
-    var tryAgainAction: (() -> Unit)? = null
-        private set
+    var currentCharactersPagingSource: CharactersPagingSource? = null
 
     val pager = Pager(
         config = PagingConfig(
@@ -35,30 +29,12 @@ class CharacterListViewModel @Inject constructor(
             enablePlaceholders = false,
         ),
         pagingSourceFactory = {
-            logcat("paging") { "Creating paging source" }
-            CharactersPagingSource(repository)
+            currentCharactersPagingSource = CharactersPagingSource(repository)
+            checkNotNull(currentCharactersPagingSource)
         }
     )
 
-    fun loadCharacters(offset: Int = 0) {
-        viewState.value = CharactersListViewState.Loading
-
-        viewModelScope.launch {
-            runCatching { repository.characters(offset) }
-                .onFailure { onRequestCharactersFailure(it, offset) }
-                .onSuccess(::onRequestCharactersSuccess)
-        }
-    }
-
-    private fun onRequestCharactersFailure(e: Throwable, offset: Int) {
-        logcat(LogPriority.ERROR) { "Failure with offset: $offset, $e"}
-        tryAgainAction = { loadCharacters(offset) }
-        viewState.value = CharactersListViewState.Failure(e)
-    }
-
-    private fun onRequestCharactersSuccess(characters: List<CharacterPreview>) {
-        currentCharacters.addAll(characters)
-        tryAgainAction = null
-        viewState.value = CharactersListViewState.Success(currentCharacters.toImmutableList())
+    fun retry() {
+        currentCharactersPagingSource?.invalidate()
     }
 }
