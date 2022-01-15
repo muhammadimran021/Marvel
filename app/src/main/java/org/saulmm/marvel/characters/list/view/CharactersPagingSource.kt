@@ -18,11 +18,17 @@ class CharactersPagingSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterPreview> {
         val offset = params.key ?: 0
-        val characters = charactersRepository.characters(offset = offset)
-        return LoadResult.Page(
-            data = characters,
-            prevKey = null,
-            nextKey = offset + characters.size
-        )
+
+        return try {
+            val characters = charactersRepository.characters(offset = offset)
+
+            LoadResult.Page(
+                data = characters,
+                prevKey = null,
+                nextKey = offset + characters.size
+            )
+        } catch (e: Throwable) {
+            LoadResult.Error(e)
+        }
     }
 }
