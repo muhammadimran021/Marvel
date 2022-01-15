@@ -113,6 +113,7 @@ dependencies {
     }
     implementation deps.compose.livedata
     implementation deps.compose.accompanist.placeholder
+    implementation deps.compose.paging
 
     testImplementation deps.testing.junit
     testImplementation deps.testing.truth

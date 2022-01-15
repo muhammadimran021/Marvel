@@ -2,7 +2,11 @@ package org.saulmm.marvel.characters.list.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -19,17 +23,22 @@ class CharacterListViewModel @Inject constructor(
 ): ViewModel() {
 
     private val viewState = MutableStateFlow<CharactersListViewState?>(null)
-    private val currentCharacters = mutableListOf<CharacterPreview>()
+    val currentCharacters = mutableListOf<CharacterPreview>()
     val onViewState = viewState.asStateFlow()
 
     var tryAgainAction: (() -> Unit)? = null
         private set
 
-    init {
-        viewModelScope.launch {
-            loadCharacters()
+    val pager = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false,
+        ),
+        pagingSourceFactory = {
+            logcat("paging") { "Creating paging source" }
+            CharactersPagingSource(repository)
         }
-    }
+    )
 
     fun loadCharacters(offset: Int = 0) {
         viewState.value = CharactersListViewState.Loading
