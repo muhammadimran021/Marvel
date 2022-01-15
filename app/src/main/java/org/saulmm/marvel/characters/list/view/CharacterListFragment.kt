@@ -88,17 +88,17 @@ class CharacterListFragment: Fragment(R.layout.fragment_character_list) {
         binding.viewError.btnTryAgain.setOnClickListener { onTryAgain() }
     }
 
-    private fun bindViewState(viewState: CharacterListViewModel.CharactersViewState) {
+    private fun bindViewState(viewState: CharactersListViewState) {
         when (viewState) {
-            is CharacterListViewModel.CharactersViewState.Failure -> {
+            is CharactersListViewState.Failure -> {
                 showLoading(false)
                 showFailure(true)
             }
-            CharacterListViewModel.CharactersViewState.Loading -> {
+            CharactersListViewState.Loading -> {
                 showFailure(false)
                 showLoading(true)
             }
-            is CharacterListViewModel.CharactersViewState.Success -> {
+            is CharactersListViewState.Success -> {
                 showFailure(false)
                 showLoading(false)
                 showCharacters(viewState.characters)
